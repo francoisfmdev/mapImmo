@@ -62,13 +62,15 @@
                                         {{ __('Mot de passe oublié ?') }}
                                     </a>
                                 @endif
-                                <a href="{{ route('register') }}">
-                                    <button>S'enregistrer</button>
-                                    </a>
+                                
                                 
                             </div>
                         </div>
                     </form>
+                    <div class="row mt-3">
+                        <div class="col-md-8 offset-md-4">
+                            <a href="{{ route('register') }}" class="btn btn-link">
+                                {{ __('S\'enregistrer') }}
                 </div>
             </div>
         </div>
