@@ -44,3 +44,4 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/test', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
