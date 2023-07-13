@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('revenue1')->nullable();
             $table->decimal('revenue2')->nullable();
             $table->decimal('revenue3')->nullable();
-            // $table->date('date_creation')->nullable();
+            $table->date('date_creation')->nullable();
         });
     }
 
