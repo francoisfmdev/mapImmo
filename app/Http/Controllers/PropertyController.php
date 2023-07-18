@@ -1,0 +1,117 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use Faker\Core\Number;
+use App\Models\Properties;
+use Illuminate\Http\Request;
+use Ramsey\Uuid\Type\Integer;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AddressController;
+
+class PropertyController extends Controller
+{
+
+    public function index_property()
+    {
+
+        $user = Auth::user();
+
+
+
+
+        // Si l'utilisateur a le rôle d'administrateur, récupérer tous les biens
+        // $properties = Properties::orderBy('id')->get();
+
+        // Sinon, récupérer uniquement les biens de l'utilisateur connecté
+        $properties = $user->user_properties()->orderBy('id')->get();
+
+        return view('properties.index', compact('properties'));
+    }
+
+    public function index_admin_property()
+    {
+
+        $user = Auth::user();
+        $properties = $user->user_properties()->orderBy('id')->get();
+        $scis = User::all();
+
+        return view('properties.adminIndex', compact(
+            'properties',
+            'scis'
+        ));
+
+    }
+
+
+
+    public function new_property()
+{
+    $user = Auth::user(); // Récupérer l'utilisateur connecté
+    return view('properties.new', ['user' => $user]);
+}
+
+    public function new_property_treatment(Request $request)
+    {
+        $request->validate([
+            'type' => 'required',
+            'nom' => 'required',
+            'streetNumber' => 'required',
+            'streetName' => 'required',
+            'postalCode' => 'required',
+            'city' => 'required',
+        ]);
+
+        $user = Auth::user(); // Definir que user-> estcelui de connecté
+
+        $addressController = new AddressController();
+        $addressController->new_address($request);
+        $address = $addressController->get_one_address($request);
+        $address_id = null;
+
+        foreach ($address as $addres) {
+            $address_id = $addres->id;
+            $properties = new Properties();
+            $properties->type = $request->input('type');
+            $properties->nom = $request->input('nom');
+            $properties->users_id = $user->id; //Ajour de l'ID de l'utilisateur connecté
+            $properties->address_id = $addres->id; //Ajour de l'ID de l'utilisateur connecté
+            // dd(gettype($address_id));
+
+
+            $properties->save();
+        }
+        // façon officielle d'utiliser compact()
+        return redirect('/properties/new' , ['user' => $user])->with('status', 'Bien ajouté avec succès');
+    }
+
+
+
+    public function update_property($id)
+    {
+        $properties = Properties::find($id);
+        return view('properties.update', compact('properties'));
+    }
+
+    public function update_property_treatment(Request $request)
+    {
+        $request->validate([
+            'type' => 'required',
+            'nom' => 'required',
+        ]);
+        $properties = Properties::find($request->id);
+        $properties->type = $request->input('type');
+        $properties->update();
+
+        return redirect('/properties')->with('status', 'Bien modifié avec succès');
+    }
+
+    public function delete_property($id)
+    {
+        $properties = Properties::find($id);
+        $properties->delete();
+
+        return redirect('/properties')->with('status', 'Bien supprimé avec succès');
+    }
+}

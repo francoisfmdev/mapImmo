@@ -1,29 +1,19 @@
 <?php
 
-use App\Models\User;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Auth\Events\PasswordReset;
+
+
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\PropertyController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 
 
-Route::get('/', function () {
-    return view('home');
-})->middleware('auth');
 
-Route::get('/home', function () {
-    return view('home');
-})->middleware('auth');
 
-Route::get('/profil', function () {
-    return view('auth.profil');
-})->middleware('auth')->name('profil');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/profil', [ProfilController::class, 'show'])
@@ -32,9 +22,13 @@ Route::middleware(['auth'])->group(function () {
         ->name('profil.edit');
     Route::put('/profil', [ProfilController::class, 'update'])
         ->name('profil.update');
+    Route::get('/', function () {
+        return view('home');
+    });
+    Route::get('/home', function () {
+        return view('home');
+    });
 });
-
-
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
@@ -42,14 +36,30 @@ Route::middleware(['auth'])->group(function () {
         ->name('logout');
 });
 
-
 Auth::routes();
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/private', function () {
-        return 'Admin';
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/index', function () {
+        $user = Auth::user();
+        if ($user->role === 'admin') {
+            // Logique spécifique pour l'utilisateur ayant le rôle "admin"
+            return app(PropertyController::class)->index_admin_property();
+        } else {
+            return app(PropertyController::class)->index_property(); // Ou redirigez vers une autre page d'erreur
+        }
     });
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/test', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//Properties
+Route::get('/update_property/{id}', [PropertyController::class, 'update_property']);
+Route::get('/delete_property/{id}', [PropertyController::class, 'delete_property']); // class ensuite nom de la fonction
+Route::post('/properties/update/treatment', [PropertyController::class, 'update_property_treatment']);
+
+Route::get('/properties', [PropertyController::class, 'index_property']);
+Route::get('/properties/new', [PropertyController::class, 'new_property']);
+Route::post('/properties/new/treatment', [PropertyController::class, 'new_property_treatment']);
+
+

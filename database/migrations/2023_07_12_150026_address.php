@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('streetName')->nullable();
             $table->string('postalCode')->nullable();
             $table->string('city')->nullable();
-            $table->integer('nbPropertyAddress')->nullable();
+            $table->integer('nbPropertyAddress') ->default(1);
             $table->timestamps();
             
         });

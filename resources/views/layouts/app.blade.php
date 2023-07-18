@@ -55,6 +55,10 @@
                                 </li>
                             @endif
                         @else
+                            
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/admin/index') }}">{{ __('Gestion des Biens') }}</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('profil') }}">{{ __('Profile') }}</a>
                             </li>

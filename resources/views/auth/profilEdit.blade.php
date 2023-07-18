@@ -69,21 +69,21 @@
                             <label for="revenue1" class="col-md-4 col-form-label text-md-end">Chiffre d'affaire n-1</label>
 
                             <div class="col-md-6">
-                                <input id="revenue1" type="number" class="form-control @error('revenue1') is-invalid @enderror" name="revenue1" value="{{ old('revenue1', $user->revenue1) }}" required autocomplete="revenue1" placeholder="Optionnel">
+                                <input id="revenue1" type="number" class="form-control @error('revenue1') is-invalid @enderror" name="revenue1" value="{{ old('revenue1', $user->revenue1) }}"  autocomplete="revenue1" placeholder="Optionnel">
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="revenue2" class="col-md-4 col-form-label text-md-end">Chiffre d'affaire n-2</label>
 
                             <div class="col-md-6">
-                                <input id="revenue2" type="number" class="form-control @error('revenue2') is-invalid @enderror" name="revenue2" value="{{ old('revenue2', $user->revenue2) }}" required autocomplete="revenue2" placeholder="Optionnel">
+                                <input id="revenue2" type="number" class="form-control @error('revenue2') is-invalid @enderror" name="revenue2" value="{{ old('revenue2', $user->revenue2) }}"  autocomplete="revenue2" placeholder="Optionnel">
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="revenue3" class="col-md-4 col-form-label text-md-end">Chiffre d'affaire n-3</label>
 
                             <div class="col-md-6">
-                                <input id="revenue3" type="number" class="form-control @error('revenue3') is-invalid @enderror" name="revenue3" value="{{ old('revenue3', $user->revenue3) }}" required autocomplete="revenue3" placeholder="Optionnel">
+                                <input id="revenue3" type="number" class="form-control @error('revenue3') is-invalid @enderror" name="revenue3" value="{{ old('revenue3', $user->revenue3) }}"  autocomplete="revenue3" placeholder="Optionnel">
                             </div>
                         </div>
                         <div class="row mb-3">

@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bien', function (Blueprint $table) {
+        Schema::create('cities', function (Blueprint $table) {
             $table->id();
-            $table->string('type')->nullable();
-            // Add other columns as needed
+            $table->string ('cityName');
+            $table->string('postalCode');
+            $table->decimal('latitude');
+            $table->decimal('longitude');
+
+
             $table->timestamps();
         });
     }
@@ -24,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('cities');
     }
 };
