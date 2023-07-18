@@ -76,7 +76,7 @@
 
                     <a href="/admin/index" class="btn btn-danger">Revenir a la liste</a>
                     @endif 
-                    <button type="submit" class="btn btn-primary">Ajouter un type de properties</button> 
+                    <button type="submit" class="btn btn-primary">Ajouter un bien</button> 
                 </form>
 
 

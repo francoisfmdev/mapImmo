@@ -62,4 +62,6 @@ Route::get('/properties', [PropertyController::class, 'index_property']);
 Route::get('/properties/new', [PropertyController::class, 'new_property']);
 Route::post('/properties/new/treatment', [PropertyController::class, 'new_property_treatment']);
 
+Route::get('/properties/by-sci' , [PropertyController::class, 'getPropertiesBySci'])
+->name('sciBy');
 

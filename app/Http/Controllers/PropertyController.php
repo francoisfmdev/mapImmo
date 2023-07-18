@@ -7,6 +7,7 @@ use Faker\Core\Number;
 use App\Models\Properties;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Type\Integer;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AddressController;
 
@@ -36,6 +37,8 @@ class PropertyController extends Controller
         $user = Auth::user();
         $properties = $user->user_properties()->orderBy('id')->get();
         $scis = User::all();
+       
+        // dd($properties);
 
         return view('properties.adminIndex', compact(
             'properties',
@@ -43,6 +46,26 @@ class PropertyController extends Controller
         ));
 
     }
+
+    
+public function getPropertiesBySci(Request $req)
+{
+    // Récupérer les biens associés au SCI
+    $sci = $req->input('sci');
+    $user = User::find($sci);
+    $properties = $user->user_properties()->orderBy('id')->get();
+    $scis = User::all();
+    // $properties = DB::table('properties')
+    //     ->join('users', 'properties.users_id', '=', 'users.id')
+    //     ->where('users.id', $sci)
+    //     ->select('properties.*')
+    //     ->get();
+
+        // dd($req->input('sci'));
+    // Retourner les biens sous forme de JSON
+    return view('properties.adminIndex' , compact('properties' , 'scis'));
+    
+}
 
 
 
@@ -83,7 +106,7 @@ class PropertyController extends Controller
             $properties->save();
         }
         // façon officielle d'utiliser compact()
-        return redirect('/properties/new' , ['user' => $user])->with('status', 'Bien ajouté avec succès');
+        return redirect('/properties/new')->with('status', 'Bien ajouté avec succès');
     }
 
 
