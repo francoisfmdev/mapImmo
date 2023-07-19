@@ -37,44 +37,46 @@ class PropertyController extends Controller
         $user = Auth::user();
         $properties = $user->user_properties()->orderBy('id')->get();
         $scis = User::all();
-       
+
         // dd($properties);
 
         return view('properties.adminIndex', compact(
             'properties',
             'scis'
         ));
-
     }
 
-    
-public function getPropertiesBySci(Request $req)
-//get all propertiesData
-{
-    // Récupérer les biens associés au SCI
-    $sci = $req->input('sci');
-    $user = User::find($sci);
-    $properties = $user->user_properties()->orderBy('id')->get();
-    $scis = User::all();
-    // $properties = DB::table('properties')
-    //     ->join('users', 'properties.users_id', '=', 'users.id')
-    //     ->where('users.id', $sci)
-    //     ->select('properties.*')
-    //     ->get();
+
+    public function getPropertiesBySci(Request $req)
+    //get all propertiesData
+    {
+        // Récupérer les biens associés au SCI
+        $sci = $req->input('sci');
+        $user = User::find($sci);
+        $properties = $user->user_properties()->orderBy('id')->get();
+        $scis = User::all();
+        // $properties = DB::table('properties')
+        //     ->join('users', 'properties.users_id', '=', 'users.id')
+        //     ->where('users.id', $sci)
+        //     ->select('properties.*')
+        //     ->get();
 
         // dd($req->input('sci'));
-    // Retourner les biens sous forme de JSON
-    return view('properties.adminIndex' , compact('properties' , 'scis'));
-    
-}
-
+        // Retourner les biens sous forme de JSON
+        return view('properties.adminIndex', compact('properties', 'scis'));
+    }
+    public function getAllPropertiesData(Request $req)
+    {
+        $usersWithProperties = User::with('user_properties')->get();
+        return response()->json($usersWithProperties);
+    }
 
 
     public function new_property()
-{
-    $user = Auth::user(); // Récupérer l'utilisateur connecté
-    return view('properties.new', ['user' => $user]);
-}
+    {
+        $user = Auth::user(); // Récupérer l'utilisateur connecté
+        return view('properties.new', ['user' => $user]);
+    }
 
     public function new_property_treatment(Request $request)
     {

@@ -82,4 +82,5 @@ Route::get('/badPassword', function () {
     return view('password.badPassword');
 })->name('badPassword');
 
-Route::get('/data', )
+Route::get('/data', [PropertyController::class, 'getAllPropertiesData'] );
+

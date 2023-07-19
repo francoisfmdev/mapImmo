@@ -59,3 +59,5 @@ class User extends Authenticatable
     return $this->hasMany(Properties::class, 'users_id');
 }
 }
+
+
