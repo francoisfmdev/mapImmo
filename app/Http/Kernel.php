@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\ProtectedPage;
+use App\Http\Middleware\Cors;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -22,11 +23,13 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        'cors' => Cors::class,
     ];
 
     protected $routeMiddleware = [
-        // ...
+
         'password.protect' => ProtectedPage::class,
+        'cors' => Cors::class,
     ];
 
     /**
@@ -48,6 +51,7 @@ class Kernel extends HttpKernel
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            'cors' =>Cors::class,
         ],
     ];
 

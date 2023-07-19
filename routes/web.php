@@ -13,7 +13,7 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 
 
-
+Route::get('/data', [PropertyController::class, 'getAllPropertiesData'])->middleware('cors');
 // Route protégée par mot de passe (utilise la méthode GET pour afficher le formulaire)
 Route::middleware('password.protect')->get('/', function () {
     return view('password.pageProtected');
