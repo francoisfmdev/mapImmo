@@ -49,6 +49,7 @@ class PropertyController extends Controller
 
     
 public function getPropertiesBySci(Request $req)
+//get all propertiesData
 {
     // Récupérer les biens associés au SCI
     $sci = $req->input('sci');
