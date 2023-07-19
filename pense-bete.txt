@@ -1,0 +1,13 @@
+
+//Route qui utilise le middleware sans l'appeler
+// Route pour vérifier le mot de passe saisi (utilise la méthode POST)
+// Route::post('/checkPassword', function (Illuminate\Http\Request $request) {
+//     $desiredPassword = 'Azerty06!';
+//     $enteredPassword = $request->input('password');
+
+//     if ($enteredPassword !== $desiredPassword) {
+//         return redirect()->route('badPassword')->withErrors(['password' => 'Mot de passe incorrect']); // Redirection si mdp faux
+//     }
+//     session()->flash('status', 'Mot de passe correct');
+//     return redirect()->route('home'); // Redirection si mot de passe OK
+// })->name('checkPassword');

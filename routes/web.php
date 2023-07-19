@@ -14,8 +14,19 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 
 
-
-
+// Route protégée par mot de passe (utilise la méthode GET pour afficher le formulaire)
+Route::middleware('password.protect')->get('/', function () {
+    return view('password.pageProtected');
+})->name('pageProtected');
+Route::post('/checkPassword', function () {
+    return redirect()->route('homePage');
+})->middleware('password.protect')->name('checkPassword');
+// Route pour afficher la vue "password.badPassword"
+Route::get('/badPassword', function () {
+    return view('password.badPassword');
+})->name('badPassword');
+Route::get('/homePage', [App\Http\Controllers\HomeController::class, 'index'])->name('homePage');
+Route::get('/data', [PropertyController::class, 'getAllPropertiesData'] );
 Route::middleware(['auth'])->group(function () {
     Route::get('/profil', [ProfilController::class, 'show'])
         ->name('profil');
@@ -24,15 +35,12 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/profil', [ProfilController::class, 'update'])
         ->name('profil.update');
 });
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
         ->middleware('web')
         ->name('logout');
 });
-
 Auth::routes();
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/index', function () {
         $user = Auth::user();
@@ -45,7 +53,7 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 // Route::get('/test', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Properties
@@ -60,27 +68,5 @@ Route::post('/properties/new/treatment', [PropertyController::class, 'new_proper
 Route::get('/properties/by-sci', [PropertyController::class, 'getPropertiesBySci'])
     ->name('sciBy');
 
-// Route protégée par mot de passe (utilise la méthode GET pour afficher le formulaire)
-Route::middleware('password.protect')->get('/', function () {
-    return view('password.pageProtected');
-})->name('pageProtected');
 
-// Route pour vérifier le mot de passe saisi (utilise la méthode POST)
-Route::post('/checkPassword', function (Illuminate\Http\Request $request) {
-    $desiredPassword = 'Azerty06!';
-    $enteredPassword = $request->input('password');
-
-    if ($enteredPassword !== $desiredPassword) {
-        return redirect()->route('badPassword')->withErrors(['password' => 'Mot de passe incorrect']); // Redirection si mdp faux
-    }
-    session()->flash('status', 'Mot de passe correct');
-    return redirect()->route('home'); // Redirection si mot de passe OK
-})->name('checkPassword');
-
-// Route pour afficher la vue "password.badPassword"
-Route::get('/badPassword', function () {
-    return view('password.badPassword');
-})->name('badPassword');
-
-Route::get('/data', [PropertyController::class, 'getAllPropertiesData'] );
 
