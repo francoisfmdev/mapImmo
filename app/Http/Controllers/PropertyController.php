@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Faker\Core\Number;
+
 use App\Models\Properties;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Type\Integer;
@@ -56,7 +57,7 @@ class PropertyController extends Controller
         $properties = $user->user_properties()->orderBy('id')->get();
         $scis = User::all();
         // $properties = DB::table('properties')
-        //     ->join('users', 'properties.users_id', '=', 'users.id')
+        //     ->join('users', 'properties.user_id', '=', 'users.id')
         //     ->where('users.id', $sci)
         //     ->select('properties.*')
         //     ->get();
@@ -66,13 +67,13 @@ class PropertyController extends Controller
         return view('properties.adminIndex', compact('properties', 'scis'));
     }
     public function getAllPropertiesData(Request $req)
-    {
-        // Récupérer tous les utilisateurs avec leurs propriétés et adresses
-        $usersWithPropertiesAndAddresses = User::with('user_properties', 'addresses')->get();
+{
+    // Récupérer tous les utilisateurs avec leurs propriétés et adresses
+    $usersWithPropertiesAndAddresses = User::with('user_properties_with_addresses')->get();
 
-        // Retourner les données au format JSON
-        return response()->json($usersWithPropertiesAndAddresses);
-    }
+    // Retourner les données au format JSON
+    return response()->json($usersWithPropertiesAndAddresses);
+}
 
 
 
@@ -105,7 +106,7 @@ class PropertyController extends Controller
             $properties = new Properties();
             $properties->type = $request->input('type');
             $properties->nom = $request->input('nom');
-            $properties->users_id = $user->id; //Ajour de l'ID de l'utilisateur connecté
+            $properties->user_id = $user->id; //Ajour de l'ID de l'utilisateur connecté
             $properties->address_id = $addres->id; //Ajour de l'ID de l'utilisateur connecté
             // dd(gettype($address_id));
 

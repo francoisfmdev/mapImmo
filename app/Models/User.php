@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Address;
 use App\Models\Properties;
 use Laravel\Sanctum\HasApiTokens;
 use App\Http\Middleware\TrustHosts;
@@ -10,6 +11,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class User extends Authenticatable
 {
@@ -54,14 +56,15 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+   
     public function user_properties()
     {
-        return $this->hasMany(Properties::class, 'users_id');
+        return $this->hasMany(Properties::class);
     }
-
-    public function addresses()
+   
+    public function user_properties_with_addresses()
     {
-        return $this->hasMany(Address::class, 'id');
+        return $this->hasMany(Properties::class, 'user_id')->with('address');
     }
 }
 

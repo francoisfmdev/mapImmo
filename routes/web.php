@@ -19,13 +19,13 @@ Route::middleware('password.protect')->get('/', function () {
     return view('password.pageProtected');
 })->name('pageProtected');
 Route::post('/checkPassword', function () {
-    return redirect()->route('homePage');
+    return redirect()->route('home');
 })->middleware('password.protect')->name('checkPassword');
 // Route pour afficher la vue "password.badPassword"
 Route::get('/badPassword', function () {
     return view('password.badPassword');
 })->name('badPassword');
-Route::get('/homePage', [App\Http\Controllers\HomeController::class, 'index'])->name('homePage');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/data', [PropertyController::class, 'getAllPropertiesData'] );
 Route::middleware(['auth'])->group(function () {
     Route::get('/profil', [ProfilController::class, 'show'])

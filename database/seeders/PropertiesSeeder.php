@@ -21,7 +21,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Raim',
             'type' => 'T1',
             
-            'users_id' => '1',
+            'user_id' => '1',
             'address_id' => '1',
             
         ]);
@@ -30,7 +30,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Raim',
             'type' => 'T3',
             
-            'users_id' => '2',
+            'user_id' => '2',
             'address_id' => '2',
             
         ]);
@@ -38,7 +38,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Raim',
             'type' => 'T3',
             
-            'users_id' => '3',
+            'user_id' => '3',
             'address_id' => '3',
             
         ]);
@@ -46,7 +46,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Raim',
             'type' => 'T3',
             
-            'users_id' => '4',
+            'user_id' => '4',
             'address_id' => '4',
             
         ]);
@@ -54,7 +54,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Raim',
             'type' => 'T3',
             
-            'users_id' => '5',
+            'user_id' => '5',
             'address_id' => '5',
             
         ]);
@@ -62,7 +62,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Raim',
             'type' => 'T3',
             
-            'users_id' => '6',
+            'user_id' => '6',
             'address_id' => '6',
             
         ]);
@@ -70,7 +70,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Raim',
             'type' => 'T3',
             
-            'users_id' => '7',
+            'user_id' => '7',
             'address_id' => '7',
             
         ]);
@@ -78,7 +78,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Paris',
             'type' => 'T3',
             
-            'users_id' => '1',
+            'user_id' => '1',
             'address_id' => '8',
             
         ]);
@@ -86,7 +86,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Paris',
             'type' => 'T3',
             
-            'users_id' => '2',
+            'user_id' => '2',
             'address_id' => '9',
             
         ]);
@@ -94,7 +94,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Paris',
             'type' => 'T3',
             
-            'users_id' => '3',
+            'user_id' => '3',
             'address_id' => '10',
             
         ]);
@@ -102,7 +102,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Paris',
             'type' => 'T3',
             
-            'users_id' => '4',
+            'user_id' => '4',
             'address_id' => '11',
             
         ]);
@@ -110,7 +110,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Paris',
             'type' => 'T3',
             
-            'users_id' => '5',
+            'user_id' => '5',
             'address_id' => '12',
             
         ]);
@@ -118,7 +118,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Paris',
             'type' => 'T3',
             
-            'users_id' => '6',
+            'user_id' => '6',
             'address_id' => '13',
             
         ]);
@@ -126,7 +126,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Paris',
             'type' => 'T3',
             
-            'users_id' => '7',
+            'user_id' => '7',
             'address_id' => '14',
             
         ]);
@@ -134,7 +134,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Lassa',
             'type' => 'T3',
             
-            'users_id' => '1',
+            'user_id' => '1',
             'address_id' => '15',
             
         ]);
@@ -142,7 +142,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Lassa',
             'type' => 'T3',
             
-            'users_id' => '2',
+            'user_id' => '2',
             'address_id' => '16',
             
         ]);
@@ -150,7 +150,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Lassa',
             'type' => 'T3',
             
-            'users_id' => '3',
+            'user_id' => '3',
             'address_id' => '17',
             
         ]);
@@ -158,7 +158,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Lassa',
             'type' => 'T3',
             
-            'users_id' => '4',
+            'user_id' => '4',
             'address_id' => '18',
             
         ]);
@@ -166,7 +166,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Lassa',
             'type' => 'T3',
             
-            'users_id' => '5',
+            'user_id' => '5',
             'address_id' => '19',
             
         ]);
@@ -174,7 +174,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Lassa',
             'type' => 'T3',
             
-            'users_id' => '6',
+            'user_id' => '6',
             'address_id' => '20',
             
         ]);
@@ -182,7 +182,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Lassa',
             'type' => 'T3',
             
-            'users_id' => '7',
+            'user_id' => '7',
             'address_id' => '21',
             
         ]);
@@ -190,7 +190,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Paerti',
             'type' => 'T3',
             
-            'users_id' => '1',
+            'user_id' => '1',
             'address_id' => '22',
             
         ]);
@@ -198,7 +198,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Paerti',
             'type' => 'T3',
             
-            'users_id' => '2',
+            'user_id' => '2',
             'address_id' => '23',
             
         ]);
@@ -206,7 +206,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Paerti',
             'type' => 'T3',
             
-            'users_id' => '3',
+            'user_id' => '3',
             'address_id' => '24',
             
         ]);
@@ -214,7 +214,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Paerti',
             'type' => 'T3',
             
-            'users_id' => '4',
+            'user_id' => '4',
             'address_id' => '25',
             
         ]);
@@ -222,7 +222,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Paerti',
             'type' => 'T3',
             
-            'users_id' => '5',
+            'user_id' => '5',
             'address_id' => '26',
             
         ]);
@@ -230,7 +230,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Paerti',
             'type' => 'T3',
             
-            'users_id' => '6',
+            'user_id' => '6',
             'address_id' => '27',
             
         ]);
@@ -238,7 +238,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Paerti',
             'type' => 'T3',
             
-            'users_id' => '7',
+            'user_id' => '7',
             'address_id' => '28',
             
         ]);
@@ -246,7 +246,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Désem',
             'type' => 'T3',
             
-            'users_id' => '1',
+            'user_id' => '1',
             'address_id' => '29',
             
         ]);
@@ -254,7 +254,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Désem',
             'type' => 'T3',
             
-            'users_id' => '2',
+            'user_id' => '2',
             'address_id' => '30',
             
         ]);
@@ -262,7 +262,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Désem',
             'type' => 'T3',
             
-            'users_id' => '3',
+            'user_id' => '3',
             'address_id' => '31',
             
         ]);
@@ -270,7 +270,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Désem',
             'type' => 'T3',
             
-            'users_id' => '4',
+            'user_id' => '4',
             'address_id' => '32',
             
         ]);
@@ -278,7 +278,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Désem',
             'type' => 'T3',
             
-            'users_id' => '5',
+            'user_id' => '5',
             'address_id' => '33',
             
         ]);
@@ -286,7 +286,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Désem',
             'type' => 'T3',
             
-            'users_id' => '6',
+            'user_id' => '6',
             'address_id' => '34',
             
         ]);
@@ -294,7 +294,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Désem',
             'type' => 'T3',
             
-            'users_id' => '5',
+            'user_id' => '5',
             'address_id' => '35',
             
         ]);
@@ -302,7 +302,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Cara',
             'type' => 'T3',
             
-            'users_id' => '1',
+            'user_id' => '1',
             'address_id' => '36',
             
         ]);
@@ -310,7 +310,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Cara',
             'type' => 'T3',
             
-            'users_id' => '2',
+            'user_id' => '2',
             'address_id' => '37',
             
         ]);
@@ -318,7 +318,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Cara',
             'type' => 'T3',
             
-            'users_id' => '3',
+            'user_id' => '3',
             'address_id' => '38',
             
         ]);
@@ -326,7 +326,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Cara',
             'type' => 'T3',
             
-            'users_id' => '4',
+            'user_id' => '4',
             'address_id' => '39',
             
         ]);
@@ -334,7 +334,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Cara',
             'type' => 'T3',
             
-            'users_id' => '5',
+            'user_id' => '5',
             'address_id' => '40',
             
         ]);
@@ -342,7 +342,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Cara',
             'type' => 'T3',
             
-            'users_id' => '6',
+            'user_id' => '6',
             'address_id' => '41',
             
         ]);
@@ -350,7 +350,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le Cara',
             'type' => 'T3',
             
-            'users_id' => '7',
+            'user_id' => '7',
             'address_id' => '42',
             
         ]);
@@ -358,7 +358,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le JeanMed',
             'type' => 'T3',
             
-            'users_id' => '2',
+            'user_id' => '2',
             'address_id' => '43',
             
         ]);
@@ -366,7 +366,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le JeanMed',
             'type' => 'T3',
             
-            'users_id' => '3',
+            'user_id' => '3',
             'address_id' => '44',
             
         ]);
@@ -374,7 +374,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le JeanMed',
             'type' => 'T3',
             
-            'users_id' => '4',
+            'user_id' => '4',
             'address_id' => '45',
             
         ]);
@@ -382,7 +382,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le JeanMed',
             'type' => 'T3',
             
-            'users_id' => '5',
+            'user_id' => '5',
             'address_id' => '46',
             
         ]);
@@ -390,7 +390,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le JeanMed',
             'type' => 'T3',
             
-            'users_id' => '6',
+            'user_id' => '6',
             'address_id' => '47',
             
         ]);
@@ -398,7 +398,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le JeanMed',
             'type' => 'T3',
             
-            'users_id' => '7',
+            'user_id' => '7',
             'address_id' => '48',
             
         ]);
@@ -406,7 +406,7 @@ class PropertiesSeeder extends Seeder
             'nom' => 'Le JeanMed',
             'type' => 'T3',
             
-            'users_id' => '1',
+            'user_id' => '1',
             'address_id' => '49',
             
         ]);

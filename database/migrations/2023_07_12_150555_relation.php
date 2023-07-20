@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('properties', function (Blueprint $table) {
             
-            $table->foreignId('users_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->foreignId('address_id')->nullable()->constrained('address');
         });
     }
@@ -24,9 +24,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('properties', function (Blueprint $table) {
-            $table->dropForeign(['users_id']);
+            $table->dropForeign(['user_id']);
             $table->dropForeign(['address_id']);
-            $table->dropColumn(['users_id', 'address_id']);
+            $table->dropColumn(['user_id', 'address_id']);
         });
     }
 };

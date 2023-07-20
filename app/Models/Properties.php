@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-use App\Http\Controllers\Address;
+
+use App\Models\User;
+use App\Models\Address;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -15,18 +17,20 @@ class Properties extends Model
     protected $fillable = [
         'type',
         'nom',
-        'users_id',
+        'user_id',
         'address_id',
 
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'users_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function address()
     {
         return $this->belongsTo(Address::class, 'address_id');
     }
+
+    
 }
