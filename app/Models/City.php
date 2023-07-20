@@ -14,6 +14,6 @@ class City extends Model
         'postalCode',
         'latitude',
         'longitude',
-        
+
     ];
 }

@@ -17,7 +17,7 @@ class Properties extends Model
         'nom',
         'users_id',
         'address_id',
-        
+
     ];
 
     public function user()

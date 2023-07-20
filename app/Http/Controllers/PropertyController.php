@@ -66,13 +66,13 @@ class PropertyController extends Controller
         return view('properties.adminIndex', compact('properties', 'scis'));
     }
     public function getAllPropertiesData(Request $req)
-{
-    // Récupérer tous les utilisateurs avec leurs propriétés et adresses
-    $usersWithPropertiesAndAddresses = User::with('user_properties', 'addressesProperty')->get();
+    {
+        // Récupérer tous les utilisateurs avec leurs propriétés et adresses
+        $usersWithPropertiesAndAddresses = User::with('user_properties', 'addresses')->get();
 
-    // Retourner les données au format JSON
-    return response()->json($usersWithPropertiesAndAddresses);
-}
+        // Retourner les données au format JSON
+        return response()->json($usersWithPropertiesAndAddresses);
+    }
 
 
 

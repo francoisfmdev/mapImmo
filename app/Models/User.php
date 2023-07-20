@@ -59,11 +59,10 @@ class User extends Authenticatable
         return $this->hasMany(Properties::class, 'users_id');
     }
 
-    public function addressesProperty()
+    public function addresses()
     {
         return $this->hasMany(Address::class, 'id');
     }
-
 }
 
 
