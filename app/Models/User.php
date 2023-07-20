@@ -55,9 +55,15 @@ class User extends Authenticatable
     ];
 
     public function user_properties()
-{
-    return $this->hasMany(Properties::class, 'users_id');
-}
+    {
+        return $this->hasMany(Properties::class, 'users_id');
+    }
+
+    public function addressesProperty()
+    {
+        return $this->hasMany(Address::class, 'id');
+    }
+
 }
 
 
