@@ -11,17 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('address', function (Blueprint $table) {
+        Schema::create('city_positions', function (Blueprint $table) {
             $table->id();
-            $table->string('streetNumber')->nullable();
-            $table->string('streetName')->nullable();
-            $table->string('postalCode')->nullable();
-            $table->string('city')->nullable();
-            $table->integer('nbPropertyAddress') ->default(1);
             $table->string('latitude') ->nullable();
             $table->string('longitude') ->nullable();
-            $table->timestamps();
+            $table->string('city') ->nullable();
             
+            $table->timestamps();
         });
     }
 
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('city_positions');
     }
 };

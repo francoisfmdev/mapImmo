@@ -3,10 +3,13 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\CityPosition;
 use Illuminate\Database\Seeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\AddressSeeder;
 use Database\Seeders\PropertiesSeeder;
+use Database\Seeders\CityPositionsSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,6 +22,7 @@ class DatabaseSeeder extends Seeder
         UserSeeder::class,
         AddressSeeder::class,
         PropertiesSeeder::class,
+        CityPositionsSeeder::class,
     ]);
 }
 }

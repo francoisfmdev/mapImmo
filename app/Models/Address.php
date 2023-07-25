@@ -16,6 +16,8 @@ class Address extends Model
         'streetName',
         'postalCode',
         'city',
-        'nbPropertyAddress'
+        'nbPropertyAddress',
+        'latitude',
+        'longitube',
     ];
 }

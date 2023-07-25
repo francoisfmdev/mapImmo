@@ -11,6 +11,8 @@ use Ramsey\Uuid\Type\Integer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\CityPositionController;
+use App\Models\CityPosition;
 
 class PropertyController extends Controller
 {
@@ -67,13 +69,13 @@ class PropertyController extends Controller
         return view('properties.adminIndex', compact('properties', 'scis'));
     }
     public function getAllPropertiesData(Request $req)
-{
-    // Récupérer tous les utilisateurs avec leurs propriétés et adresses
-    $usersWithPropertiesAndAddresses = User::with('user_properties_with_addresses')->get();
-
-    // Retourner les données au format JSON
-    return response()->json($usersWithPropertiesAndAddresses);
-}
+    {
+        // Récupérer tous les utilisateurs avec leurs propriétés et adresses
+        $usersWithPropertiesAndAddresses = User::with('user_properties_with_addresses')->get();
+        $cities = CityPosition::all();
+        // Retourner les données au format JSON
+        return response()->json([$usersWithPropertiesAndAddresses , $cities]);
+    }
 
 
 
@@ -92,10 +94,13 @@ class PropertyController extends Controller
             'streetName' => 'required',
             'postalCode' => 'required',
             'city' => 'required',
+            'lon' => 'required',
+            'lat' => 'required',
         ]);
 
         $user = Auth::user(); // Definir que user-> estcelui de connecté
 
+        //
         $addressController = new AddressController();
         $addressController->new_address($request);
         $address = $addressController->get_one_address($request);
@@ -107,12 +112,16 @@ class PropertyController extends Controller
             $properties->type = $request->input('type');
             $properties->nom = $request->input('nom');
             $properties->user_id = $user->id; //Ajour de l'ID de l'utilisateur connecté
-            $properties->address_id = $addres->id; //Ajour de l'ID de l'utilisateur connecté
-            // dd(gettype($address_id));
-
-
+            $properties->address_id = $addres->id; //Ajour de l'ID de l'utilisateur connecté         
             $properties->save();
+
+            $city = $request->input('city');
+            
+
+            $cityPositionController = new CityPositionController();
+            $cityPositionController->addCityIfNotExists($city);
         }
+
         // façon officielle d'utiliser compact()
         return redirect('/properties/new')->with('status', 'Bien ajouté avec succès');
     }
@@ -146,3 +155,7 @@ class PropertyController extends Controller
         return redirect('/properties')->with('status', 'Bien supprimé avec succès');
     }
 }
+
+ //utiliser CityPositionCOntroller avec une méthode qui permet de savoir si la ville de l'address de la request 
+        //si la ville existe deja dans la base alors il se passse rien
+        //si la ville n'existe pas j'utilise les coodonnées de la 

@@ -1,25 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
-    
-
     <div class='container '>
         <div class="row">
             <div class="col s12">
                 <h1 class="text-center">Ajouter un properties</h1>
 
                 @if (session('status'))
-                <div class="alert alert-success">
-                    {{ session('status')}}
-                </div>
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
                 @endif
                 <ul>
-                @foreach ($errors->all() as $error)
-                <li class="alert alert-danger">{{$error}}</li>
-                @endforeach
+                    @foreach ($errors->all() as $error)
+                        <li class="alert alert-danger">{{ $error }}</li>
+                    @endforeach
                 </ul>
 
-                <form action="/properties/new/treatment" method="POST" class="form-group">
+                <form action="/properties/new/treatment" method="POST" class="form-group" id="formAdd">
                     @csrf
                     <div class="mb-3">
                         <label for="type" class="form-label">Type de properties</label>
@@ -30,9 +28,9 @@
                             <option value="T3">T3</option>
                             <option value="T4">T4</option>
                             <option value="T5">T5</option>
-                            
+
                         </select>
-                        
+
 
                     </div>
 
@@ -62,21 +60,27 @@
                         <input type="text" class="form-control" id="city" name='city'>
 
                     </div>
+                    <div style="diplay:none;" class="mb-3" id="groupLat">
+                        <label for="lat" class="form-label">Latitude</label>
+                        <input type="text" class="form-control" id="lat" name='lat' hidden>
+
+                    </div>
+                    <div style="diplay:none;" class="mb-3" id="groupLon">
+                        <label for="lon" class="form-label">Longitude</label>
+                        <input type="text" class="form-control" id="lon" name='lon' hidden>
+
+                    </div>
 
 
-                    
+
 
 
                     @if ($user['role'] == 'user')
-                   
-
-                    <a href="/properties" class="btn btn-danger">Revenir a la liste</a>
+                        <a href="/properties" class="btn btn-danger">Revenir a la liste</a>
                     @else
-                    
-
-                    <a href="/admin/index" class="btn btn-danger">Revenir a la liste</a>
-                    @endif 
-                    <button type="submit" class="btn btn-primary">Ajouter un bien</button> 
+                        <a href="/admin/index" class="btn btn-danger">Revenir a la liste</a>
+                    @endif
+                    <button type="submit" id="addAddress" class="btn btn-primary">Ajouter un bien</button>
                 </form>
 
 
@@ -85,5 +89,5 @@
         </div>
     </div>
 
-
-   @endsection
+    <script src={{asset('/js/addressGeocode.js')}}></script>
+@endsection

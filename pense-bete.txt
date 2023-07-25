@@ -11,3 +11,17 @@
 //     session()->flash('status', 'Mot de passe correct');
 //     return redirect()->route('home'); // Redirection si mot de passe OK
 // })->name('checkPassword');
+
+
+
+// Route protégée par mot de passe (utilise la méthode GET pour afficher le formulaire)
+// Route::middleware('password.protect')->get('/', function () {
+//     return view('password.pageProtected');
+// })->name('pageProtected');
+// Route::post('/checkPassword', function () {
+//     return redirect()->route('home');
+// })->middleware('password.protect')->name('checkPassword');
+// // Route pour afficher la vue "password.badPassword"
+// Route::get('/badPassword', function () {
+//     return view('password.badPassword');
+// })->name('badPassword');
