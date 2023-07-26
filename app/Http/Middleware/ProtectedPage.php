@@ -24,7 +24,7 @@ class ProtectedPage
                     return redirect()->route('badPassword')->withErrors(['password' => 'Mot de passe incorrect']);
                 }
                 else{
-                    return redirect()->route('home');
+                    return redirect()->route('mapByProperties');
                 }
             }
             

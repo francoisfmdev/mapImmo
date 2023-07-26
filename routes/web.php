@@ -27,7 +27,7 @@ Route::middleware('password.protect')->group(function () {
     })->name('badPassword');
     Route::get('/data', [PropertyController::class, 'getAllPropertiesData'])->middleware('cors');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/mapByProperties', [MapController::class, 'mapByProperties']);
+    Route::get('/mapByProperties', [MapController::class, 'mapByProperties'])->name('mapByProperties');
 });
 
 // routes classiques
