@@ -1,10 +1,15 @@
+const INITIAL_ZOOM_LEVEL = 13.5;
+
 function initMap() {
     const mapOptions = {
         center: { lat: 43.7101728, lng: 7.2619532 },
-        zoom: 13.5
+        zoom: INITIAL_ZOOM_LEVEL
     }
     return new google.maps.Map(document.getElementById('map'), mapOptions)
 }
+
+
+
 
 function createMarkers(data, map) {
     const markers = []

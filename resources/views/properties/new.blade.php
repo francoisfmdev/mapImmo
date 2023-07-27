@@ -1,10 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+
+
+
     <div class='container '>
         <div class="row">
-            <div class="col s12">
-                <h1 class="text-center">Ajouter un properties</h1>
+            <div class="col-s12">
+
+                <h1 class="text-center userColor ">Ajouter un bien</h1>
 
                 @if (session('status'))
                     <div class="alert alert-success">
@@ -20,7 +24,7 @@
                 <form action="/properties/new/treatment" method="POST" class="form-group" id="formAdd">
                     @csrf
                     <div class="mb-3">
-                        <label for="type" class="form-label">Type de properties</label>
+                        <label for="type" class="form-label">Type de bien</label>
                         <select name="type" id="type" class="form-select">
                             <option value="Garage">Garage</option>
                             <option value="T1">T1</option>
@@ -76,11 +80,11 @@
 
 
                     @if ($user['role'] == 'user')
-                        <a href="/properties" class="btn btn-danger">Revenir a la liste</a>
+                        <a href="/properties" class="btn btn-white borderColor">Revenir a la liste</a>
                     @else
-                        <a href="/admin/index" class="btn btn-danger">Revenir a la liste</a>
+                        <a href="/index" class="btn btn-white borderColor">Revenir a la liste</a>
                     @endif
-                    <button type="submit" id="addAddress" class="btn btn-primary">Ajouter un bien</button>
+                    <button type="submit" id="addAddress" class="btn  borderColor">Ajouter un bien</button>
                 </form>
 
 

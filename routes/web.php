@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
         ->middleware('web')
         ->name('logout');
-    Route::get('/admin/index', function () {
+    Route::get('/index', function () {
         $user = Auth::user();
         if ($user->role === 'admin') {
             // Logique spécifique pour l'utilisateur ayant le rôle "admin"

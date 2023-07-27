@@ -15,7 +15,7 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
 </head>
 
@@ -54,9 +54,8 @@
                                 </li>
                             @endif
                         @else
-                            
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/admin/index') }}">{{ __('Gestion des Biens') }}</a>
+                                <a class="nav-link" href="{{ url('/index') }}">{{ __('Gestion des Biens') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('profil') }}">{{ __('Profile') }}</a>
@@ -88,13 +87,29 @@
 
         <main class="py-4">
             @yield('content')
+            @Auth
+            @php
+                // Récupérez la couleur de l'utilisateur
+                $userColor = Auth::user()->color;
+            @endphp
+            <style>
+                .borderColor {
+                    border: 2px solid {{ $userColor }};            
+                }
+                .userColor {
+                    color:{{$userColor}}
+                }
+
+            </style>
+            @endAuth
+            
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
     </script>
-    
-    
+
+
 </body>
 
 </html>
