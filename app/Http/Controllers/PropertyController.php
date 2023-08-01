@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Faker\Core\Number;
 
+use App\Models\Address;
 use App\Models\Properties;
+use App\Models\CityPosition;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Type\Integer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CityPositionController;
-use App\Models\CityPosition;
 
 class PropertyController extends Controller
 {
@@ -21,17 +22,15 @@ class PropertyController extends Controller
     {
 
         $user = Auth::user();
-
-
-
-
-        // Si l'utilisateur a le rôle d'administrateur, récupérer tous les biens
-        // $properties = Properties::orderBy('id')->get();
-
-        // Sinon, récupérer uniquement les biens de l'utilisateur connecté
+        $userColor = $user->color;
         $properties = $user->user_properties()->orderBy('id')->get();
 
-        return view('properties.index', compact('properties'));
+
+        return view('properties.index', compact(
+            'properties',
+            'user',
+            'userColor'
+            ));
     }
 
     public function index_admin_property()
@@ -40,12 +39,15 @@ class PropertyController extends Controller
         $user = Auth::user();
         $properties = $user->user_properties()->orderBy('id')->get();
         $scis = User::all();
+        $userColor = $user->color;
 
-        // dd($properties);
+        // dd($scis);
 
         return view('properties.adminIndex', compact(
             'properties',
-            'scis'
+            'scis',
+            'userColor',
+            'user'
         ));
     }
 
@@ -58,17 +60,16 @@ class PropertyController extends Controller
         $user = User::find($sci);
         $properties = $user->user_properties()->orderBy('id')->get();
         $scis = User::all();
-        // $properties = DB::table('properties')
-        //     ->join('users', 'properties.user_id', '=', 'users.id')
-        //     ->where('users.id', $sci)
-        //     ->select('properties.*')
-        //     ->get();
 
-        // dd($req->input('sci'));
-        // Retourner les biens sous forme de JSON
-        return view('properties.adminIndex', compact('properties', 'scis'));
+        // Récupérer la couleur de l'utilisateur en fonction de la SCI sélectionnée
+    // Assurez-vous d'avoir une colonne "color" dans votre table "users" pour stocker la couleur de chaque utilisateur
+    $userColor = $user->color ?? null;
+       
+        return view('properties.adminIndex', compact('properties', 'scis' , 'userColor'));
     }
-    public function getAllPropertiesData(Request $req)
+
+    
+    public function getAllPropertiesData()
     {
         // Récupérer tous les utilisateurs avec leurs propriétés et adresses
         $usersWithPropertiesAndAddresses = User::with('user_properties_with_addresses')->get();
@@ -79,10 +80,21 @@ class PropertyController extends Controller
 
 
 
-    public function new_property()
+    public function new_property(Request $request)
     {
         $user = Auth::user(); // Récupérer l'utilisateur connecté
-        return view('properties.new', ['user' => $user]);
+        $userColor = $user->color;
+
+        $selectedSciId = $request->input('sci_id');
+
+        // Récupérer les informations de l'utilisateur sélectionné à partir de son ID
+        $selectedSci = User::find($selectedSciId);
+    
+        // Récupérer les SCI de l'utilisateur connecté
+        $scis = User::all();
+        
+    
+        return view('properties.new', compact('user', 'userColor', 'scis', 'selectedSci'));
     }
 
     public function new_property_treatment(Request $request)
@@ -94,12 +106,11 @@ class PropertyController extends Controller
             'streetName' => 'required',
             'postalCode' => 'required',
             'city' => 'required',
-            'lon' => 'required',
-            'lat' => 'required',
+            
         ]);
-
+        $sciId = $request->input('sci_id');
         $user = Auth::user(); // Definir que user-> estcelui de connecté
-
+        
         //
         $addressController = new AddressController();
         $addressController->new_address($request);
@@ -113,6 +124,7 @@ class PropertyController extends Controller
             $properties->nom = $request->input('nom');
             $properties->user_id = $user->id; //Ajour de l'ID de l'utilisateur connecté
             $properties->address_id = $addres->id; //Ajour de l'ID de l'utilisateur connecté         
+            $properties->user_id = $sciId;
             $properties->save();
 
             $city = $request->input('city');
@@ -123,28 +135,66 @@ class PropertyController extends Controller
         }
 
         // façon officielle d'utiliser compact()
-        return redirect('/properties/new')->with('status', 'Bien ajouté avec succès');
+        return redirect('/index')->with('status', 'Bien ajouté avec succès');
     }
 
 
 
-    public function update_property($id)
-    {
-        $properties = Properties::find($id);
-        return view('properties.update', compact('properties'));
-    }
+    public function update_property($id, Request $request)
+{
+    $properties = Properties::find($id);
+    $address = $properties->address;
+
+    // Récupérer l'utilisateur associé à la propriété
+    $selectedSci = $properties->user;
+
+    $userColor = $selectedSci ? $selectedSci->color : null;
+
+    // Le reste du code reste inchangé...
+    $scis = User::all();
+    return view('properties.update', compact('properties', 'address', 'userColor', 'scis', 'selectedSci'));
+}
 
     public function update_property_treatment(Request $request)
     {
         $request->validate([
             'type' => 'required',
             'nom' => 'required',
+            'streetNumber' => 'required',
+            'streetName' => 'required',
+            'postalCode' => 'required',
+            'city' => 'required',
+            'lat' => 'required',
+            'lon' => 'required',
         ]);
-        $properties = Properties::find($request->id);
-        $properties->type = $request->input('type');
-        $properties->update();
-
-        return redirect('/properties')->with('status', 'Bien modifié avec succès');
+    
+        $idPropriete = $request->input('property_id');
+        $propriete = Properties::find($idPropriete);
+    
+        if (!$propriete) {
+            return redirect('/properties')->with('error', 'Propriété introuvable.');
+        }
+    
+        $controllerAdresse = new AddressController();
+        $controllerAdresse->new_address($request);
+    
+        $adresse = $controllerAdresse->get_one_address($request);
+        $idAdresse = null;
+    
+        foreach ($adresse as $adr) {
+            $idAdresse = $adr->id;
+            $propriete->type = $request->input('type');
+            $propriete->nom = $request->input('nom');
+            $propriete->address_id = $adr->id;
+            $propriete->save();
+    
+            $ville = $request->input('city');
+    
+            $controllerPositionVille = new CityPositionController();
+            $controllerPositionVille->addCityIfNotExists($ville);
+        }
+    
+        return redirect('/index')->with('status', 'Propriété modifiée avec succès');
     }
 
     public function delete_property($id)
@@ -152,10 +202,6 @@ class PropertyController extends Controller
         $properties = Properties::find($id);
         $properties->delete();
 
-        return redirect('/properties')->with('status', 'Bien supprimé avec succès');
+        return redirect('/index')->with('status', 'Bien supprimé avec succès');
     }
 }
-
- //utiliser CityPositionCOntroller avec une méthode qui permet de savoir si la ville de l'address de la request 
-        //si la ville existe deja dans la base alors il se passse rien
-        //si la ville n'existe pas j'utilise les coodonnées de la 

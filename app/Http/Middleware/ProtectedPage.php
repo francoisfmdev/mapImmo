@@ -28,6 +28,7 @@ class ProtectedPage
                 }
             }
             
+            
     
             return $next($request);
         }

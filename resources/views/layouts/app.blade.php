@@ -15,7 +15,12 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
 
 </head>
 
@@ -47,62 +52,54 @@
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Se connecter') }}</a>
                                 </li>
                             @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('S\'enregistrer') }}</a>
-                                </li>
-                            @endif
+                            
                         @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/index') }}">{{ __('Gestion des Biens') }}</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/mapByProperties') }}">{{ __('Retour carte') }}</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('profil') }}">{{ __('Profile') }}</a>
                             </li>
+                            @if (auth()->user()->role === 'admin')
+                                @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Nouvelle SCI') }}</a>
+                                    </li>
+                                @endif
+                            @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
-
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Déconnexion') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        style="display: none;">
                                         @csrf
                                     </form>
+                                    <a class="dropdown-item" href="{{ route('login') }}"
+                                        onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                                        {{ __('Déconnexion') }}
+                                    </a>
                                 </div>
                             </li>
-
+                            
                         @endguest
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <main class="py-4">
+        <main>
             @yield('content')
-            @Auth
-            @php
-                // Récupérez la couleur de l'utilisateur
-                $userColor = Auth::user()->color;
-            @endphp
-            <style>
-                .borderColor {
-                    border: 2px solid {{ $userColor }};            
-                }
-                .userColor {
-                    color:{{$userColor}}
-                }
 
-            </style>
-            @endAuth
-            
+
+
+
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"

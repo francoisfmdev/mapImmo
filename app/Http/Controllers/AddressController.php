@@ -33,6 +33,8 @@ class AddressController extends Controller
         
      }
 
+     
+
     public function get_one_address(Request $req){
 
         $address = Address::query()
@@ -55,4 +57,6 @@ class AddressController extends Controller
 
 
     }
+
+   
 }

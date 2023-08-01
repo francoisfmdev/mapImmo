@@ -15,7 +15,7 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 
 // les routes des pages protégées par mot de passe
-Route::middleware('password.protect')->group(function () {
+Route::middleware(['password.protect'])->group(function () {
     Route::get('/', function () {
         return view('password.pageProtected');
     })->name('pageProtected');
@@ -26,7 +26,6 @@ Route::middleware('password.protect')->group(function () {
         return view('password.badPassword');
     })->name('badPassword');
     Route::get('/data', [PropertyController::class, 'getAllPropertiesData'])->middleware('cors');
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/mapByProperties', [MapController::class, 'mapByProperties'])->name('mapByProperties');
 });
 
@@ -53,7 +52,11 @@ Route::middleware(['auth'])->group(function () {
         } else {
             return app(PropertyController::class)->index_property(); // Ou redirigez vers une autre page d'erreur
         }
-    });
+    })->name('index');
+    Route::get('/register', function(){
+        return view ('auth.register');
+    })
+    ->name('register');
 });
 
 //Properties
@@ -62,7 +65,7 @@ Route::get('/delete_property/{id}', [PropertyController::class, 'delete_property
 Route::post('/properties/update/treatment', [PropertyController::class, 'update_property_treatment']);
 
 Route::get('/properties', [PropertyController::class, 'index_property']);
-Route::get('/properties/new', [PropertyController::class, 'new_property']);
+Route::get('/properties/new', [PropertyController::class, 'new_property'])->name('newProperty');
 Route::post('/properties/new/treatment', [PropertyController::class, 'new_property_treatment']);
 
 Route::get('/properties/by-sci', [PropertyController::class, 'getPropertiesBySci'])

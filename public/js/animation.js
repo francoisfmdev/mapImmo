@@ -123,7 +123,7 @@ async function animateMapWithZooming(latitude, longitude, map) {
   await dezoome(map, 1000);
 
   // Animation de déplacement vers la nouvelle position en 2 secondes
-  await animateMapToPosition(latitude, longitude, map, 3000);
+  await animateMapToPosition(latitude, longitude, map, 3500);
 
   // Rézoomer vers le niveau initial en 1 seconde de manière fluide
   await zoomBackToInitialLevel(map, INITIAL_ZOOM_LEVEL, 1000);
