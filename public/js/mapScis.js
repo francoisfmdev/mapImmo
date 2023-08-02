@@ -15,15 +15,18 @@ function createMarkers(data, map, typePage) {
         for (const addressProperty of sci.user_properties_with_addresses) {
             let fillColor = 'gray'; // Couleur par défaut
 
-            if (typePage == 'byProperty') {
+            if (typePage == 'bySCI') {
                 fillColor = applyColor(addressProperty.type); 
             }
-
+            
+            
+            // Nettoyer le nom de l'utilisateur en supprimant les espaces avant et après
+            const cleanedName = sci.name.replace(/\s/g, '');
             // Définir le chemin vers le fichier SVG en fonction du type
-            let svgFileName = `marker${addressProperty.type}.svg`;
+            let svgFileName = `marker${cleanedName}.svg`;
 
             const icon = {
-                url: `images/properties/${svgFileName}`, // Chemin vers le fichier SVG
+                url: `images/scis/${svgFileName}`, // Chemin vers le fichier SVG
                 fillColor: fillColor, // Utiliser la couleur déterminée
                 fillOpacity: 1,
                 scale: 1,

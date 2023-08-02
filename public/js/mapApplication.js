@@ -7,11 +7,12 @@ fetchingData('/data')
                     let markers = []
                     let properties = data[0]
                     let cities = data[1]
-
+                    let page = data[2]
+                    // console.log(page);
                     markers = createMarkers(properties, map)
 
-                    console.log(' hh' ,map.center.lat())
-                    setTimeout(() => { console.log(' hh' ,map.center.lat())
+                    
+                    setTimeout(() => {
                       }, "5000")
                     parcourirEnBoucleAvecPause(cities , map)
                     

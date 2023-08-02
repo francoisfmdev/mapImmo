@@ -44,4 +44,14 @@ class MapController extends Controller
             'totalVilla',
         ));
     }
-}
+
+    public function mapByScis(){
+        $users = User::all();
+        $properties = Properties::all();
+        // dd($properties);
+    
+        return view('password.mapByScis', compact('users', 'properties'));
+    }
+
+    }
+

@@ -75,7 +75,16 @@ class PropertyController extends Controller
         $usersWithPropertiesAndAddresses = User::with('user_properties_with_addresses')->get();
         $cities = CityPosition::all();
         // Retourner les données au format JSON
-        return response()->json([$usersWithPropertiesAndAddresses , $cities]);
+        return response()->json([$usersWithPropertiesAndAddresses , $cities , 'byProperty']);
+    }
+
+    public function getAllPropertiesDataBySci()
+    {
+        // Récupérer tous les utilisateurs avec leurs propriétés et adresses
+        $usersWithPropertiesAndAddresses = User::with('user_properties_with_addresses')->get();
+        $cities = CityPosition::all();
+        // Retourner les données au format JSON
+        return response()->json([$usersWithPropertiesAndAddresses , $cities , 'bySCI']);
     }
 
 
