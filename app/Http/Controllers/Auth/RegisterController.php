@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Actions\Fortify\CreateNewUser;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -24,6 +26,8 @@ class RegisterController extends Controller
     |
     */
 
+    
+
     use RegistersUsers;
 
     /**
@@ -31,7 +35,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/index';
 
     /**
      * Create a new controller instance.
@@ -40,7 +44,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth');
     }
 
     /**
@@ -60,8 +64,8 @@ class RegisterController extends Controller
             'color' => ['required' , 'string'],
             'nbOfProperty' => ['numeric'],
             'revenue1' => ['nullable', 'numeric'],
-'revenue2' => ['nullable', 'numeric'],
-'revenue3' => ['nullable', 'numeric'],
+            'revenue2' => ['nullable', 'numeric'],
+            'revenue3' => ['nullable', 'numeric'],
             'date_creation' => ['date_format:Y-m-d'],
 
         ]);
@@ -73,19 +77,45 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function create(Request $request)
+
     {
-        return User::create([
+        $data = $request->all();
+
+        $validator =  Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'address' => ['required' , 'string'],
+            'color' => ['required' , 'string'],
+            'nbOfProperty' => ['numeric'],
+            'revenue1' => ['nullable', 'numeric'],
+            'revenue2' => ['nullable', 'numeric'],
+            'revenue3' => ['nullable', 'numeric'],
+            'date_creation' => ['date_format:Y-m-d'],
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'address' => $data['address'],
             'color' => $data['color'],
-            'nbOfProperty' => 0,
             'revenue1' => $data['revenue1'],
             'revenue2' => $data['revenue2'],
             'revenue3' => $data['revenue3'],
             'date_creation' => Carbon::createFromFormat('Y-m-d', $data['date_creation']),
+       
         ]);
+
+        return redirect()->route('index')->with('success', 'Nouvelle SCI créée');
     }
-}
+        
+       
+    }
+

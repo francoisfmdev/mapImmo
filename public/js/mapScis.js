@@ -13,25 +13,26 @@ function createMarkers(data, map, typePage) {
 
     for (const sci of data) {
         for (const addressProperty of sci.user_properties_with_addresses) {
-            let fillColor = 'gray'; // Couleur par défaut
+            // Couleur par défaut
+            const fillColor = sci.color || 'gray'; // Utilisez une couleur par défaut 'gray' si la couleur n'est pas définie
 
-            if (typePage == 'bySCI') {
-                fillColor = applyColor(addressProperty.type); 
-            }
-            
-            
-            // Nettoyer le nom de l'utilisateur en supprimant les espaces avant et après
-            const cleanedName = sci.name.replace(/\s/g, '');
-            // Définir le chemin vers le fichier SVG en fonction du type
-            let svgFileName = `marker${cleanedName}.svg`;
+            // Utilisez l'URL du fichier SVG sans remplacer la couleur dans le contenu du SVG
+            const svgContent = `
+                <svg width="70px" height="70px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Utilisez la couleur de remplissage fillColor directement dans le chemin SVG -->
+                    <path fill="${fillColor}" stroke="black" stroke-width="20" d="M256 17.108c-75.73 0-137.122 61.392-137.122 137.122.055 23.25 6.022 46.107 11.58 56.262L256 494.892l119.982-274.244h-.063c11.27-20.324 17.188-43.18 17.202-66.418C393.122 78.5 331.73 17.108 256 17.108zm0 68.56a68.56 68.56 0 0 1 68.56 68.562A68.56 68.56 0 0 1 256 222.79a68.56 68.56 0 0 1-68.56-68.56A68.56 68.56 0 0 1 256 85.67z"/>
+                </svg>`;
 
+            // Utilisez la couleur de remplissage fillColor pour le marqueur
             const icon = {
-                url: `images/scis/${svgFileName}`, // Chemin vers le fichier SVG
-                fillColor: fillColor, // Utiliser la couleur déterminée
+                url: `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svgContent)}`,
+                fillColor: fillColor, // Utilisez la couleur déterminée
                 fillOpacity: 1,
                 scale: 1,
-                anchor: new google.maps.Point(16, 16), // Point d'ancrage pour centrer le marqueur
+                 // Point d'ancrage pour centrer le marqueur
+                optimized: false,
             };
+
 
             const mark = new google.maps.Marker({
                 position: new google.maps.LatLng(addressProperty.address.latitude, addressProperty.address.longitude),
@@ -46,6 +47,7 @@ function createMarkers(data, map, typePage) {
     }
     return markers;
 }
+
 
 function isColorValid(color) {
     // Vous pouvez utiliser une expression régulière pour vérifier que la couleur est au format hexadécimal

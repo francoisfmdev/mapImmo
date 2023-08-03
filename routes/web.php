@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Actions\Fortify\CreateNewUser;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\Auth\RegisterController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 
@@ -54,10 +55,11 @@ Route::middleware(['auth'])->group(function () {
             return app(PropertyController::class)->index_property(); // Ou redirigez vers une autre page d'erreur
         }
     })->name('index');
-    Route::get('/register', function(){
+    Route::get('/newSCi', function(){
         return view ('auth.register');
     })
-    ->name('register');
+    ->name('newSCI');
+    Route::post('/newSCItraitment', [RegisterController::class, 'create'])->name('newSCItraitment');
 });
 
 //Properties

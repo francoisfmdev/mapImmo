@@ -53,20 +53,19 @@ class PropertyController extends Controller
 
 
     public function getPropertiesBySci(Request $req)
-    //get all propertiesData
-    {
-        // Récupérer les biens associés au SCI
-        $sci = $req->input('sci');
-        $user = User::find($sci);
-        $properties = $user->user_properties()->orderBy('id')->get();
-        $scis = User::all();
+{
+    // Récupérer les biens associés au SCI
+    $sci = $req->input('sci');
+    $user = User::with('user_properties')->find($sci);
+    $properties = $user->user_properties()->orderBy('id')->get();
+    $scis = User::all();
 
-        // Récupérer la couleur de l'utilisateur en fonction de la SCI sélectionnée
+    // Récupérer la couleur de l'utilisateur en fonction de la SCI sélectionnée
     // Assurez-vous d'avoir une colonne "color" dans votre table "users" pour stocker la couleur de chaque utilisateur
     $userColor = $user->color ?? null;
        
-        return view('properties.adminIndex', compact('properties', 'scis' , 'userColor'));
-    }
+    return view('properties.adminIndex', compact('properties', 'scis' , 'userColor'));
+}
 
     
     public function getAllPropertiesData()
@@ -75,17 +74,10 @@ class PropertyController extends Controller
         $usersWithPropertiesAndAddresses = User::with('user_properties_with_addresses')->get();
         $cities = CityPosition::all();
         // Retourner les données au format JSON
-        return response()->json([$usersWithPropertiesAndAddresses , $cities , 'byProperty']);
+        return response()->json([$usersWithPropertiesAndAddresses , $cities ]);
     }
 
-    public function getAllPropertiesDataBySci()
-    {
-        // Récupérer tous les utilisateurs avec leurs propriétés et adresses
-        $usersWithPropertiesAndAddresses = User::with('user_properties_with_addresses')->get();
-        $cities = CityPosition::all();
-        // Retourner les données au format JSON
-        return response()->json([$usersWithPropertiesAndAddresses , $cities , 'bySCI']);
-    }
+   
 
 
 
@@ -115,6 +107,9 @@ class PropertyController extends Controller
             'streetName' => 'required',
             'postalCode' => 'required',
             'city' => 'required',
+            'lon' => 'required',
+            'lat' => 'required',
+            
             
         ]);
         $sciId = $request->input('sci_id');
@@ -143,7 +138,7 @@ class PropertyController extends Controller
             $cityPositionController->addCityIfNotExists($city);
         }
 
-        // façon officielle d'utiliser compact()
+       
         return redirect('/index')->with('status', 'Bien ajouté avec succès');
     }
 

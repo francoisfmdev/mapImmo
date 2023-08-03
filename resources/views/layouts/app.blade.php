@@ -64,9 +64,9 @@
                                 <a class="nav-link" href="{{ route('profil') }}">{{ __('Profile') }}</a>
                             </li>
                             @if (auth()->user()->role === 'admin')
-                                @if (Route::has('register'))
+                                @if (Route::has('newSCI'))
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Nouvelle SCI') }}</a>
+                                        <a class="nav-link" href="{{ route('newSCI') }}">{{ __('Nouvelle SCI') }}</a>
                                     </li>
                                 @endif
                             @endif

@@ -77,7 +77,7 @@
 
                         </div>
 
-                        <input type="hidden" name="sci_id" value="{{ request('sci_id') }}">
+                       
                         <div class="mb-3">
                             <label for="nom" class="form-label">Nom du Bien</label>
                             <input type="text" class="form-control"
@@ -95,35 +95,35 @@
                         <div class="mb-3">
                             <label for="streetName" class="form-label">Nom de la rue</label>
                             <input type="text" class="form-control"
-                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};' id="streetName"
+                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};" id="streetName"
                                 name='streetName'>
 
                         </div>
                         <div class="mb-3">
                             <label for="postalCode" class="form-label">Code Postal</label>
                             <input type="text" class="form-control"
-                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};' id="postalCode"
+                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};" id="postalCode"
                                 name='postalCode'>
 
                         </div>
                         <div class="mb-3">
                             <label for="city" class="form-label">Ville</label>
                             <input type="text" class="form-control"
-                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};' id="city"
+                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};" id="city"
                                 name='city'>
 
                         </div>
                         <div style="diplay:none;" class="mb-3" id="groupLat">
                             <label for="lat" class="form-label">Latitude</label>
                             <input type="text" class="form-control"
-                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};' id="lat"
+                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};" id="lat"
                                 name='lat' hidden>
 
                         </div>
                         <div style="diplay:none;" class="mb-3" id="groupLon">
                             <label for="lon" class="form-label">Longitude</label>
                             <input type="text" class="form-control"
-                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};' id="lon"
+                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};" id="lon"
                                 name='lon' hidden>
 
                         </div>
@@ -173,7 +173,7 @@
 
 
 
-    
-@endsection
 <script src={{ asset('/js/addressGeocode.js') }}></script>
+@endsection
+
 

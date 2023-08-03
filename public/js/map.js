@@ -13,12 +13,9 @@ function createMarkers(data, map, typePage) {
 
     for (const sci of data) {
         for (const addressProperty of sci.user_properties_with_addresses) {
-            let fillColor = 'gray'; // Couleur par défaut
+            const fillColor = applyColor(addressProperty.type); ; // Couleur par défaut
 
-            if (typePage == 'byProperty') {
-                fillColor = applyColor(addressProperty.type); 
-            }
-
+            
             // Définir le chemin vers le fichier SVG en fonction du type
             let svgFileName = `marker${addressProperty.type}.svg`;
 
@@ -27,7 +24,7 @@ function createMarkers(data, map, typePage) {
                 fillColor: fillColor, // Utiliser la couleur déterminée
                 fillOpacity: 1,
                 scale: 1,
-                anchor: new google.maps.Point(16, 16), // Point d'ancrage pour centrer le marqueur
+                
             };
 
             const mark = new google.maps.Marker({

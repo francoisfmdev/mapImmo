@@ -8,7 +8,7 @@
                 <div class="card-header">Nouvelle SCI</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('newSCItraitment') }}">
                         @csrf
 
                         <div class="row mb-3">
