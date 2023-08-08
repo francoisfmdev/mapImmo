@@ -10,7 +10,7 @@
 
         </div>
     @endforeach
-    
+
     @if (auth()->check())
         <!-- Vérifie si l'utilisateur est connecté -->
         <div>
@@ -35,18 +35,18 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Sci</th>
-                            <th>CA n-1</th>
-                            <th>CA n-2</th>
-                            <th>CA n-3</th>
-                            <th>Nombre de bien</th>
-                            <th>Garage</th>
-                            <th>T1</th>
-                            <th>T2</th>
-                            <th>T3</th>
-                            <th>T4</th>
-                            <th>T5</th>
-                            <th>Villa</th>
+                            <th class="t_title">Sci</th>
+                            <th class="t_title">CA n-1</th>
+                            <th class="t_title">CA n-2</th>
+                            <th class="t_title">CA n-3</th>
+                            <th class="t_title">Nombre de bien</th>
+                            <th class="t_title">Garage</th>
+                            <th class="t_title">T1</th>
+                            <th class="t_title">T2</th>
+                            <th class="t_title">T3</th>
+                            <th class="t_title">T4</th>
+                            <th class="t_title">T5</th>
+                            <th class="t_title">Villa</th>
                         </tr>
                     </thead>
                     <tbody>

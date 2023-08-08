@@ -4,33 +4,44 @@
 }
 
 .legend {
-    display: flex; 
+    display: flex;
     justify-content: center;
     margin: 15px;
- 
+
   }
-  
+
   .legend-item {
     display: flex;
     align-items: center;
 
   }
-  
+
   .legend-color {
     width: 100px; /* Taille de la couleur */
     height: 30px; /* Taille de la couleur */
     margin-right: 10px;
     border: 2px solid black;
     text-align: center;
-    
+
      /* Marge de 10px entre la couleur et le texte */
   }
 
   .montSerraFont{
     font-family: 'Montserrat', sans-serif;
-    
+
     font-weight: 600;
 }
 
+.table{
+    font-family: 'Montserrat', sans-serif;
+}
+.t_title{
+    font-size:1.4em;
+    margin-top: 40px;
+    margin-bottom:40px;
+}
+td{
+    text-align: center;
+}
 
 
