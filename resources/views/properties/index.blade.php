@@ -29,8 +29,7 @@
                         <th>Ville</th>
 
 
-                        <th class="text-end">Modifier</th>
-                        <th class="text-end">Supprimer</th>
+                        
 
 
                     </tr>
@@ -40,27 +39,23 @@
                         $ide = 1;
                     @endphp
                         @foreach ($properties as $property)
-                            <tr class='table-row-height montSerraFont'>
-                                <td>{{ $property->user->name }}</td>
-                                <td>{{ $property->type }}</td>
-                                <td>{{ $property->nom }}</td>
-                                <td>{{ $property->address->streetNumber }} {{ $property->address->streetName }}</td>
-                                <td>{{ $property->address->city }}</td>
-
-                                <td class="text-end">
+                        <tr class="table-row-height montSerraFont">
+                            <td class="col-md-2 ">{{ $property->user->name }}</td>
+                            <td class="col-md-2">{{ $property->type }}</td>
+                            <td class="col-md-2">{{ $property->nom }}</td>
+                            <td class="col-md-2">{{ $property->address->streetNumber }} {{ $property->address->streetName }}</td>
+                            <td class="col-md-2">{{ $property->address->city }}</td>
+                            <td class="col-md-2">
+                                <div class="d-flex flex-column">
                                     <a href="/update_property/{{ $property->id }}"
                                         class="btn btn-white borderColor">Modifier</a>
-                                </td>
-                                <td class="text-end">
                                     <a href="/delete_property/{{ $property->id }}"
                                         class="btn btn-white borderColor">supprimer</a>
-                                </td>
-
-
-
-                            </tr>
-
-
+                                </div>
+                            </td>
+                        </tr>
+                           
+                                
                             @php
                                 $ide += 1;
                             @endphp

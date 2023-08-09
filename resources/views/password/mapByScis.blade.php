@@ -2,76 +2,118 @@
     integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 <link rel="stylesheet" href="{{ asset('/css/map.css') }}">
 
-<div class="legend">
-    <a href="{{'mapByProperties'}}">Retour carte des biens par type</a>
-    @foreach ($users as $user)
-        <div class="legend-item montSerraFont mx-3">
-            <div class="legend-color" style="background-color:{{ $user->color }};">{{ $user->name }}</div>
-
+<div class="container">
+    <div class="row mb-2">
+        <div class="col-1">
+            @if (auth()->check())
+                <!-- Vérifie si l'utilisateur est connecté -->
+                <div>
+                    <a href="{{ url('/index') }}" class="buttonSvgStyle  d-flex justify-content-start mt-2"
+                        title="Index" data-toggle="tooltip"><img
+                            src="{{ asset('images/button/address-book-solid.svg') }}"></a>
+                </div>
+            @else
+                <div>
+                    <a href="{{ url('/login') }}" class="buttonSvgStyle  d-flex justify-content-start mt-2"
+                        title="Connexion" data-toggle="tooltip"><img
+                            src="{{ asset('images/button/right-to-bracket-solid.svg') }}"></a>
+                </div>
+            @endif
         </div>
-    @endforeach
-
-    @if (auth()->check())
-        <!-- Vérifie si l'utilisateur est connecté -->
-        <div>
-            <a href="{{ url('/index') }}">Index</a>
+        <div class="col-10">
+            <div class="row d-flex justify-content-center">
+                @foreach ($users as $user)
+                    <div class="legend-item montSerraFont col-3 mt-3 ">
+                        <div class="legend-color1 " style="background-color:{{ $user->color }};"></div>
+                        <span class="legend-label">{{ $user->name }}</span>
+                    </div>
+                @endforeach
+            </div>
         </div>
-    @else
-        <div>
-            <a href="{{ url('/login') }}">Connexion</a>
+        <div class="col-1">
+            <a href="{{ 'mapByProperties' }}" class="buttonSvgStyle d-flex justify-content-end mt-2"
+                title="Carte par type de propriété" data-toggle="tooltip"><img
+                    src="{{ asset('images/button/building-circle-arrow-right-solid.svg') }}" alt=""></a>
         </div>
-    @endif
+    </div>
 </div>
+
 
 <div id="map"></div>
 
 
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12 col-md-10 mx-auto text-center">
-            <div class=" mt-5 table ">
+<div class="container">
+    <div class="col-12 mx-auto text-center">
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <div class="table-responsive">
+                    <div class=" mt-3">
+                        <table class="table table_property">
+                            <thead>
+                                <tr>
+                                    <th class="t_title">SCI</th>
+                                    <th class="t_title">N-1</th>
+                                    <th class="t_title">N-2</th>
+                                    <th class="t_title">N-3</th>
 
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="t_title">Sci</th>
-                            <th class="t_title">CA n-1</th>
-                            <th class="t_title">CA n-2</th>
-                            <th class="t_title">CA n-3</th>
-                            <th class="t_title">Nombre de bien</th>
-                            <th class="t_title">Garage</th>
-                            <th class="t_title">T1</th>
-                            <th class="t_title">T2</th>
-                            <th class="t_title">T3</th>
-                            <th class="t_title">T4</th>
-                            <th class="t_title">T5</th>
-                            <th class="t_title">Villa</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($users as $user)
-                            <tr>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->revenue1 }}</td>
-                                <td>{{ $user->revenue2 }}</td>
-                                <td>{{ $user->revenue3 }}</td>
-                                <td>{{ $user->user_properties->count() }}</td>
-                                <td>{{ $user->user_properties->where('type', 'Garage')->count() }}</td>
-                                <td>{{ $user->user_properties->where('type', 'T1')->count() }}</td>
-                                <td>{{ $user->user_properties->where('type', 'T2')->count() }}</td>
-                                <td>{{ $user->user_properties->where('type', 'T3')->count() }}</td>
-                                <td>{{ $user->user_properties->where('type', 'T4')->count() }}</td>
-                                <td>{{ $user->user_properties->where('type', 'T5')->count() }}</td>
-                                <td>{{ $user->user_properties->where('type', 'Villa')->count() }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($users as $user)
+                                    <tr>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->revenue1 }}</td>
+                                        <td>{{ $user->revenue2 }}</td>
+                                        <td>{{ $user->revenue3 }}</td>
+
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-12">
+                <div class="table-responsive">
+                    <div class=" mt-3">
+                        <table class="table table_property">
+                            <thead>
+                                <tr>
+                                    
+                                    <th class="t_title">Garage</th>
+                                    <th class="t_title">T1</th>
+                                    <th class="t_title">T2</th>
+                                    <th class="t_title">T3</th>
+                                    <th class="t_title">T4</th>
+                                    <th class="t_title">T5</th>
+                                    <th class="t_title">Villa</th>
+                                    <th class="t_title">Total</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($users as $user)
+                                    <tr>
+                                        <td>{{ $user->user_properties->where('type', 'Garage')->count() }}</td>
+                                        <td>{{ $user->user_properties->where('type', 'T1')->count() }}</td>
+                                        <td>{{ $user->user_properties->where('type', 'T2')->count() }}</td>
+                                        <td>{{ $user->user_properties->where('type', 'T3')->count() }}</td>
+                                        <td>{{ $user->user_properties->where('type', 'T4')->count() }}</td>
+                                        <td>{{ $user->user_properties->where('type', 'T5')->count() }}</td>
+                                        <td>{{ $user->user_properties->where('type', 'Villa')->count() }}</td>
+                                        <td>{{ $user->user_properties->count() }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 
 
 

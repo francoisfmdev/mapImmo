@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     <div class="container text-center">
         <div class="row">
             <h1 class="mt-4">Bienvenue Admin </h1>
@@ -17,72 +16,90 @@
                 </div>
             @endif
             <div class="container">
-                <div class="row col-12 my-3">
+                <div class="row my-3">
                     <form action="{{ route('sciBy') }}" method="GET" class="row g-3 align-items-center">
-                        <div class="col-10">
+                        <div class="col-sm-6 col-md-8">
                             <select name="sci" id="sci" class="form-select borderColorLabel">
-                                <option value="">Choix de la SCI</option>
                                 @foreach ($scis as $sci)
-                                    <option value="{{ $sci->id }}" {{ request('sci') == $sci->id ? 'selected' : '' }} >
+                                    <option value="{{ $sci->id }}" {{ request('sci') == $sci->id ? 'selected' : '' }}>
                                         {{ $sci->name }}
                                     </option>
                                 @endforeach
+                                <option selected value="default">Choix de la SCI</option>
+
                             </select>
                         </div>
-                        <div class="col-2">
-                            <button type="submit" class="btn w-100 borderColor">Voir la SCI</button>
+                        <div class="col-sm-6 col-md-4">
+                            <button type="submit" class="btn w-100 borderColor" id='seeSci'>Voir la SCI</button>
                         </div>
                     </form>
                 </div>
             </div>
-            
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>SCI</th>
-                        <th>Type</th>
-                        <th>Nom</th>
-                        <th>Adresse</th>
-                        <th>Ville</th>
-                        <th class="text-end">Modifier</th>
-                        <th class="text-end">Supprimer</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($properties as $property)
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>SCI</th>
+                            <th>Type</th>
+                            <th>Nom</th>
+                            <th>Adresse</th>
+                            <th>Ville</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($properties as $property)
                         <tr class="table-row-height montSerraFont">
-                            <td>{{ $property->user->name }}</td>
-                            <td>{{ $property->type }}</td>
-                            <td>{{ $property->nom }}</td>
-                            <td>{{ $property->address->streetNumber }} {{ $property->address->streetName }}</td>
-                            <td>{{ $property->address->city }}</td>
-                            <td class="text-end">
-                                <a href="/update_property/{{ $property->id }}" class="btn btn-white borderColor">Modifier</a>
-                            </td>
-                            <td class="text-end">
-                                <a href="/delete_property/{{ $property->id }}" class="btn btn-white borderColor text-white-on-hover">Supprimer</a>
+                            <td class="col-md-2 ">{{ $property->user->name }}</td>
+                            <td class="col-md-2">{{ $property->type }}</td>
+                            <td class="col-md-2">{{ $property->nom }}</td>
+                            <td class="col-md-2">{{ $property->address->streetNumber }} {{ $property->address->streetName }}</td>
+                            <td class="col-md-2">{{ $property->address->city }}</td>
+                            <td class="col-md-2">
+                                <div class="d-flex flex-column">
+                                    <a href="/update_property/{{ $property->id }}" class="btn btn-white borderColor mb-2">Modifier</a>
+                                    <a href="/delete_property/{{ $property->id }}" class="btn btn-white borderColor text-white-on-hover">Supprimer</a>
+                                </div>
                             </td>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                        
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <style>
         .borderColor {
             border: 2px solid {{ $userColor }};
             color: {{ $userColor }};
-        } 
+        }
+
         .borderColorLabel {
             border: 2px solid {{ $userColor }};
             color: {{ $userColor }};
-        } 
+        }
+
         .borderColor:hover {
             background-color: {{ $userColor }};
             color: white;
         }
-        /* Ajoutez les styles pour les boutons ayant la classe .btn-white */ 
+
+        /* Ajoutez les styles pour les boutons ayant la classe .btn-white */
     </style>
-    
+
+    <script>
+        let sci = document.getElementById('sci');
+        let seeSci = document.getElementById('seeSci');
+        seeSci.style = 'display:none';
+        sci.addEventListener('change', function(e) {
+            console.log(this.value)
+            if (this.value == 'default') {
+                seeSci.style = 'display:none';
+            } else {
+                seeSci.style = 'display:inherit';
+            }
+        })
+    </script>
 @endsection

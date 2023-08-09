@@ -32,10 +32,10 @@
                 </ul>
                 @if ($user['role'] === 'admin')
                     <div class="container">
-                        <div class="row col-7 my-3">
+                        <div class="row my-3">
                             <form action="{{ route('newProperty') }}" method="GET" class="row g-3 align-items-center">
                                 @csrf
-                                <div class="col-10">
+                                <div class="col-6 col-md-8">
                                     <select name="sci" id="sci" class="form-select"
                                         style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }}; color:{{ $selectedSci ? $selectedSci->color : $userColor }} ">
                                         <option value="">Choix de la SCI</option>
@@ -48,14 +48,14 @@
                                     </select>
                                 </div>
                                 <input type="hidden" name="sci_id" value="{{ request('sci') }}">
-                                <div class="col-2">
+                                <div class="col-6 col-md-4">
                                     <button type="submit" class="btn w-100 borderColor">Voir la SCI</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 @endif
-                <div class="col-6">
+                <div class="col-md-8">
                     <form action="/properties/new/treatment" method="POST" class="form-group" id="formAdd">
                         @csrf
 
@@ -134,16 +134,32 @@
 
 
                         @if ($user['role'] == 'user')
-                            <div class="col-12">
-                                <button type="submit" id="addAddress" class="btn borderColor w-50">Valider</button>
-                                <a href="/properties" class="btn borderColor ">Revenir a la liste</a>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="submit" id="addAddress" class="btn borderColor w-100">Valider</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="/properties" class="btn borderColor w-100 mt-md-0 mt-2">Revenir à la liste</a>
+                                </div>
                             </div>
+                        </div>
                         @else
-                            <div class="col-12 mb-5">
-                                <button type="submit" id="addAddress" class="btn w-50 borderColor">Valider</button>
-                                <a href="/index" class="btn  w-30 borderColor">Revenir
-                                    a la liste</a>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-6 col-12">
+                                    <div class="d-grid gap-2 d-md-block">
+                                        <button type="submit" id="addAddress" class="btn borderColor  w-100 ">Valider</button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-12">
+                                    <div class="d-grid gap-2 d-md-block">
+                                        <a href="/index" class="btn borderColor w-100 mt-md-0 mt-2">Revenir à la liste</a>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+                            
                         @endif
 
 

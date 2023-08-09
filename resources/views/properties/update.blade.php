@@ -17,7 +17,7 @@
                         <li class="alert alert-danger">{{ $error }}</li>
                     @endforeach
                 </ul>
-                <div class="col-6">
+                <div class="col-md-6">
                     <form action="/properties/update/treatment" method="POST" class="form-group" id="formAdd">
                         @csrf
                         <div class="mb-3">
@@ -99,15 +99,32 @@
                         @endphp
 
                         @if ($user['role'] == 'user')
-                            <div class="col-12">
-                                <button type="submit" id="addAddress" class="btn  borderColor w-50">Valider</button>
-                                <a href="/properties" class="btn borderColor ">Revenir à la liste</a>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="submit" id="addAddress" class="btn borderColor w-100">Valider</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="/properties" class="btn borderColor w-100 mt-md-0 mt-2">Revenir à la liste</a>
+                                </div>
                             </div>
+                        </div>
                         @else
-                            <div class="col-12 mb-5">
-                                <button type="submit" id="addAddress" class="btn borderColor w-50" >Valider</button>
-                                <a href="/index" class="btn borderColor w-30">Revenir à la liste</a>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-6 col-12">
+                                    <div class="d-grid gap-2 d-md-block">
+                                        <button type="submit" id="addAddress" class="btn borderColor  w-100 ">Valider</button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-12">
+                                    <div class="d-grid gap-2 d-md-block">
+                                        <a href="/index" class="btn borderColor w-100 mt-md-0 mt-2">Revenir à la liste</a>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+                            
                         @endif
 
                     </form>
@@ -121,18 +138,20 @@
         .borderColor {
             border: 2px solid {{ $userColor }};
             color: {{ $userColor }};
-        } 
+        }
+
         .borderColorLabel {
             border: 2px solid {{ $userColor }};
             color: {{ $userColor }};
-        } 
+        }
+
         .borderColor:hover {
             background-color: {{ $userColor }};
             color: white;
         }
-        /* Ajoutez les styles pour les boutons ayant la classe .btn-white */ 
+
+        /* Ajoutez les styles pour les boutons ayant la classe .btn-white */
     </style>
 
     <script src={{ asset('/js/addressGeocode.js') }}></script>
-
 @endsection
