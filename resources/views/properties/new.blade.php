@@ -47,7 +47,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <input type="hidden" name="sci_id" value="{{ request('sci') }}">
+                                {{-- <input type="hidden" name="sci_id" value="{{ request('sci') }}"> --}}
                                 <div class="col-6 col-md-4">
                                     <button type="submit" class="btn w-100 borderColor">Voir la SCI</button>
                                 </div>

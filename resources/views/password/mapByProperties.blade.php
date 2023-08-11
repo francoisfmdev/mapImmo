@@ -118,7 +118,15 @@
 
 <div id="map" class="map"></div>
 
+<div class="container text-center">
+    <div class="row">
+        <!-- ... Autres éléments ... -->
 
+        <div class="col-md-12 mt-4 w-60">
+            <button id="pauseButton" class="btn btn-primary w-60">Pause</button>
+        </div>
+    </div>
+</div>
 
 <div class="container-fluid">
     
@@ -208,3 +216,17 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiKGYNw5UqK24iZPhxr_5uML3q_8KZjn0&callback=initMap" async
     defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    const pauseButton = document.getElementById("pauseButton");
+
+    // Ajoute un gestionnaire d'événements pour le clic sur le bouton de pause
+    pauseButton.addEventListener("click", function () {
+        togglePause(); // Appelle la fonction pour mettre en pause ou reprendre l'animation
+
+        // Mettez à jour le texte du bouton en fonction de l'état de la pause
+        pauseButton.textContent = isPaused ? "Reprendre" : "Pause";
+    });
+    pauseButton.textContent = isPaused ? "Reprendre" : "Pause";
+});
+</script>

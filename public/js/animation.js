@@ -93,8 +93,8 @@ async function zoomBackToInitialLevel(map, initialZoom, duration) {
   
   async function dezoome(map, duration) {
     const currentZoom = map.getZoom();
-    const targetZoom = 12;
-    const zoomSteps = 30; // Nombre de pas pour atteindre le niveau de zoom cible
+    const targetZoom = 13.5;
+    const zoomSteps = 10; // Nombre de pas pour atteindre le niveau de zoom cible
     const zoomStepDuration = duration / zoomSteps; // Durée de chaque pas
   
     return new Promise(resolve => {
@@ -120,13 +120,13 @@ async function zoomBackToInitialLevel(map, initialZoom, duration) {
 // Fonction asynchrone pour animer le déplacement de la carte avec dézoom, déplacement et rézoom
 async function animateMapWithZooming(latitude, longitude, map) {
   // Dézoomer à 11 en 1 seconde de manière fluide
-  await dezoome(map, 1000);
+  await dezoome(map,1500);
 
   // Animation de déplacement vers la nouvelle position en 2 secondes
-  await animateMapToPosition(latitude, longitude, map, 3500);
+  await animateMapToPosition(latitude, longitude, map, 500);
 
   // Rézoomer vers le niveau initial en 1 seconde de manière fluide
-  await zoomBackToInitialLevel(map, INITIAL_ZOOM_LEVEL, 1000);
+  await zoomBackToInitialLevel(map, INITIAL_ZOOM_LEVEL, 1500);
   
 }
 

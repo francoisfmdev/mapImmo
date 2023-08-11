@@ -86,7 +86,7 @@ class PropertyController extends Controller
         $user = Auth::user(); // Récupérer l'utilisateur connecté
         $userColor = $user->color;
 
-        $selectedSciId = $request->input('sci_id');
+        $selectedSciId = $request->input('sci');
 
         // Récupérer les informations de l'utilisateur sélectionné à partir de son ID
         $selectedSci = User::find($selectedSciId);

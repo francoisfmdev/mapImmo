@@ -1,9 +1,34 @@
-const INITIAL_ZOOM_LEVEL = 13.5;
+const INITIAL_ZOOM_LEVEL = 16;
 
 function initMap() {
     const mapOptions = {
+        disableDefaultUI: true,
         center: { lat: 43.7101728, lng: 7.2619532 },
-        zoom: INITIAL_ZOOM_LEVEL
+        zoom: INITIAL_ZOOM_LEVEL,
+        styles: [
+            {
+                featureType: 'poi', //poi: Points d'intérêt tels que restaurants, hôtels, etc.
+                elementType: 'labels',
+                stylers: [{ visibility: 'off' }] // Masquer les labels des points d'intérêt (marqueurs prédéfinis)
+            },
+            // {
+            //     featureType: 'road', // Masquer les noms des routes
+            //     elementType: 'labels',
+            //     stylers: [{ visibility: 'off' }]
+            // },
+            {
+                featureType: 'transit', // Masquer les noms des arrêts de train
+                elementType: 'labels',
+                stylers: [{ visibility: 'off' }]
+            },
+            // {
+            //     featureType: 'administrative.neighborhood', // Masquer les noms des quartiers
+            //     elementType: 'labels',
+            //     stylers: [{ visibility: 'off' }]
+            // },
+            
+            
+        ]
     }
     return new google.maps.Map(document.getElementById('map'), mapOptions)
 }
@@ -17,7 +42,7 @@ function createMarkers(data, map, typePage) {
 
             
             // Définir le chemin vers le fichier SVG en fonction du type
-            let svgFileName = `marker${addressProperty.type}.svg`;
+            let svgFileName = `circle${addressProperty.type}.svg`;
 
             const icon = {
                 url: `images/properties/${svgFileName}`, // Chemin vers le fichier SVG
