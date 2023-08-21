@@ -130,7 +130,10 @@ async function animateMapWithZooming(latitude, longitude, map) {
   
 }
 
-async function parcourirEnBoucleAvecPause(cities, map) {
+async function parcourirEnBoucleAvecPause(cities, map,) {
+  
+ 
+
   while (true) {
       if (!isPaused) {
           const city = cities[index];

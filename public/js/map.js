@@ -33,7 +33,7 @@ function initMap() {
     return new google.maps.Map(document.getElementById('map'), mapOptions)
 }
 
-function createMarkers(data, map, typePage) {
+function createMarkers(data, map) {
     const markers = [];
 
     for (const sci of data) {

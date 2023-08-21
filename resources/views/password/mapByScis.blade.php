@@ -37,13 +37,23 @@
         </div>
     </div>
 </div>
-
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="col-2 d-flex justify-content-center mb-3">
+        <select name="selectedBySCI" id="selectedBySCI" class="form-control">
+            <option value="">Filtre par SCI</option>
+            @foreach ($users as $user)
+                <option value="{{ $user->name }}"> 
+                    {{ $user->name }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+</div>
 
 <div id="map"></div>
 
 <div class="container text-center">
     <div class="row">
-        <!-- ... Autres éléments ... -->
 
         <div class="col-md-12 mt-4 w-60">
             <button id="pauseButton" class="btn btn-primary w-60">Pause</button>

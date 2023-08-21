@@ -1,9 +1,12 @@
 const INITIAL_ZOOM_LEVEL = 16;
+const INITIAL_ZOOM_LEVEL1 = 13
+let markers = [];
+
 
 function initMap() {
     const mapOptions = {
         center: { lat: 43.7101728, lng: 7.2619532 },
-        zoom: INITIAL_ZOOM_LEVEL,
+        zoom: INITIAL_ZOOM_LEVEL1,
         styles: [
             {
                 featureType: 'poi', //poi: Points d'intérêt tels que restaurants, hôtels, etc.
@@ -30,8 +33,9 @@ function initMap() {
     return new google.maps.Map(document.getElementById('map'), mapOptions)
 }
 
-function createMarkers(data, map, typePage) {
-    const markers = [];
+function createMarkers(data, map) {
+    const timeMarker = 200   
+    let delay = 0
 
     for (const sci of data) {
         for (const addressProperty of sci.user_properties_with_addresses) {
@@ -40,8 +44,8 @@ function createMarkers(data, map, typePage) {
 
             // Utilisez l'URL du fichier SVG sans remplacer la couleur dans le contenu du SVG
             const svgContent = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" >
-  <circle cx="11.5" cy="11.5" r="8" fill="${fillColor}" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" >
+  <circle cx="3.5" cy="3.5" r="3" fill="${fillColor}" />
 </svg>`;
 
             // Utilisez la couleur de remplissage fillColor pour le marqueur
@@ -55,20 +59,46 @@ function createMarkers(data, map, typePage) {
             };
 
 
-            const mark = new google.maps.Marker({
-                position: new google.maps.LatLng(addressProperty.address.latitude, addressProperty.address.longitude),
-                map: map,
-                title: "",
-                icon: icon,
-                optimized: false,
-            });
+            setTimeout(() => {
+                const mark = new google.maps.Marker({
+                    position: new google.maps.LatLng(addressProperty.address.latitude, addressProperty.address.longitude),
+                    map: map,
+                    title: "",
+                    icon: icon,
+                    optimized: false,
+                    sci : sci.name,
+                });
+            
+
 
             markers.push(mark);
+        }, delay)
+        delay += timeMarker
         }
     }
     return markers;
 }
 
+const selectBySCI = document.getElementById('selectedBySCI')
+
+
+
+function filterMarkersBySCI(selectedSCI) {
+    for (const marker of markers) {
+        const markerSCI = marker.sci; // Assurez-vous d'ajouter la propriété "sci" à chaque marqueur lors de la création
+
+        if (!selectedSCI || markerSCI === selectedSCI) {
+            marker.setVisible(true); // Afficher le marqueur si aucune SCI n'est sélectionnée ou si le marqueur correspond à la SCI sélectionnée
+        } else {
+            marker.setVisible(false); // Masquer le marqueur s'il ne correspond pas à la SCI sélectionnée
+        }
+    }
+}
+
+selectBySCI.addEventListener('change', function() {
+    const selectedSCI = selectBySCI.value;
+    filterMarkersBySCI(selectedSCI);
+});
 
 function isColorValid(color) {
     // Vous pouvez utiliser une expression régulière pour vérifier que la couleur est au format hexadécimal
@@ -82,27 +112,17 @@ function changeMapPosition(newLat, newLng, map) {
     map.setCenter(newPosition);
 }
 
-function applyColor(type) {
-    switch (type) {
-        case 'Garage':
-            return '#F94144';
-        case 'T1':
-            return '#90BE6D';
-        case 'T2':
-            return '#43AA8B';
-        case 'T3':
-            return '#4D908E';
-        case 'T4':
-            return '#577590';
-        case 'T5':
-            return '#277DA1';
-        case 'Villa':
-            return '#F8961E';
-
-        // Ajoutez d'autres cas pour chaque type avec la couleur correspondante
-        default:
-            return 'gray'; // Couleur par défaut si le type n'est pas reconnu
+function countSCI(properties){
+    let total = 0
+    console.log(properties)
+    for (const sci of properties) {
+        let numberProperties = sci.user_properties_with_addresses.length
+        console.log(numberProperties)
+        total += numberProperties
+        
     }
+    console.log(total)
+    return total
 }
 
 

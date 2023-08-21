@@ -13,10 +13,7 @@ class AddressController extends Controller
         $ad = $this->get_one_address($req);
         if (count($ad) == 0){
             $address = new Address();
-        $address->streetNumber = $req->input('streetNumber');
-        $address->streetName = $req->input('streetName');
-        $address->postalCode = $req->input('postalCode');
-        $address->city = $req->input('city');
+        $address->fullAddress = $req->input('fullAddress');
         $address->longitude = $req->input('lon');
         $address->latitude = $req->input('lat');
             
@@ -38,9 +35,7 @@ class AddressController extends Controller
     public function get_one_address(Request $req){
 
         $address = Address::query()
-        ->where("streetName" , "=" , $req->input("streetName"))
-        ->where("streetNumber" , "=" , $req->input("streetNumber"))
-        ->where("city" , "=" , $req->input("city"))
+        ->where("fullAddress" , "=" , $req->input("fullAddress"))
         ->get();
 
         return $address;

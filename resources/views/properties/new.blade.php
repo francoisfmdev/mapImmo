@@ -86,33 +86,35 @@
 
                         </div>
 
-                        <div class="mb-3">
-                            <label for="streetNumber" class="form-label">Numéro de rue</label>
-                            <input type="text" class="form-control" id="streetNumber" name='streetNumber'
-                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};">
+                        
+                        
+                        
+                        
 
-                        </div>
                         <div class="mb-3">
-                            <label for="streetName" class="form-label">Nom de la rue</label>
+                            <label for="fullAddress" class="form-label">Adresse complète</label>
+                            <input type="text" class="form-control" 
+                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};" id="fullAddress""
+                                name='fullAddress'>
+                        </div>
+
+
+
+                        {{-- <div style="diplay:none;" class="mb-3" id="groupLatNH">
+                            <label for="latNH" class="form-label">Latitude Quartier</label>
                             <input type="text" class="form-control"
-                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};" id="streetName"
-                                name='streetName'>
+                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};" id="latNH"
+                                name='latNH' hidden>
 
                         </div>
-                        <div class="mb-3">
-                            <label for="postalCode" class="form-label">Code Postal</label>
+                        <div style="diplay:none;" class="mb-3" id="groupLonNH">
+                            <label for="lonNH" class="form-label">Longitude Quartier</label>
                             <input type="text" class="form-control"
-                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};" id="postalCode"
-                                name='postalCode'>
+                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};" id="lonNH"
+                                name='lonNH' hidden>
 
-                        </div>
-                        <div class="mb-3">
-                            <label for="city" class="form-label">Ville</label>
-                            <input type="text" class="form-control"
-                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};" id="city"
-                                name='city'>
+                        </div> --}}
 
-                        </div>
                         <div style="diplay:none;" class="mb-3" id="groupLat">
                             <label for="lat" class="form-label">Latitude</label>
                             <input type="text" class="form-control"
@@ -127,11 +129,9 @@
                                 name='lon' hidden>
 
                         </div>
+
+
                         <input type="hidden" name="sci_id" value="{{ request('sci') }}">
-
-
-
-
 
                         @if ($user['role'] == 'user')
                         <div class="container">
@@ -188,8 +188,16 @@
     </style>
 
 
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiKGYNw5UqK24iZPhxr_5uML3q_8KZjn0&libraries=places"></script>
+<script>
+    let input = document.getElementById('fullAddress');
+    let fullAddress = new google.maps.places.Autocomplete(input);
+    console.log(fullAddress);
+  </script>
+
 
 <script src={{ asset('/js/addressGeocode.js') }}></script>
+
 @endsection
 
 

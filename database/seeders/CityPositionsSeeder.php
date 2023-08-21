@@ -17,7 +17,7 @@ class CityPositionsSeeder extends Seeder
             
             'city' => 'Nice',
             'latitude' => '43.7009358',       
-            'longitude' => '7.2683912',   
+            'longitude' => '7.2683912',  
         ]);
         CityPosition::create([
             

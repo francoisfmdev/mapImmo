@@ -103,15 +103,15 @@ class PropertyController extends Controller
         $request->validate([
             'type' => 'required',
             'nom' => 'required',
-            'streetNumber' => 'required',
-            'streetName' => 'required',
-            'postalCode' => 'required',
-            'city' => 'required',
+            'fullAddress' => 'required',
             'lon' => 'required',
             'lat' => 'required',
+            // 'lonNH' => 'required',
+            // 'latNH' => 'required',
             
             
         ]);
+    
         $sciId = $request->input('sci_id');
         $user = Auth::user(); // Definir que user-> estcelui de connecté
         
@@ -136,6 +136,7 @@ class PropertyController extends Controller
 
             $cityPositionController = new CityPositionController();
             $cityPositionController->addCityIfNotExists($city);
+          
         }
 
        
@@ -164,10 +165,7 @@ class PropertyController extends Controller
         $request->validate([
             'type' => 'required',
             'nom' => 'required',
-            'streetNumber' => 'required',
-            'streetName' => 'required',
-            'postalCode' => 'required',
-            'city' => 'required',
+            'fullAddress' => 'required',
             'lat' => 'required',
             'lon' => 'required',
         ]);
@@ -208,4 +206,13 @@ class PropertyController extends Controller
 
         return redirect('/index')->with('status', 'Bien supprimé avec succès');
     }
+
+    private function determineZomm(String $city){
+        if($city === 'Nice'){
+            return 16;
+        }else{
+            return 15;
+        }
+    }
+
 }

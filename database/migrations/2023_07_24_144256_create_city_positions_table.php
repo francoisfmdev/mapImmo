@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('latitude') ->nullable();
             $table->string('longitude') ->nullable();
             $table->string('city') ->nullable();
+            $table->integer('zoom') ->nullable();
             
             $table->timestamps();
         });

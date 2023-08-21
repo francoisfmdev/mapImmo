@@ -9,12 +9,15 @@ fetchingData('/data')
                     let cities = data[1]
                     let page = data[2]
                     // console.log(page);
+                    const nbP = countSCI(properties)
                     markers = createMarkers(properties, map)
-
+                    const time = nbP * 300
+                    const formattedTime = String(time)
                     
                     setTimeout(() => {
-                      }, "5000")
-                    parcourirEnBoucleAvecPause(cities , map)
+                      parcourirEnBoucleAvecPause(cities , map)
+                      }, time)
+                    
                     
                 })
                 .catch(error => console.log(error))

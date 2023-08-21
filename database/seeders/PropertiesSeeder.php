@@ -471,16 +471,139 @@ class PropertiesSeeder extends Seeder
         ]);
         Properties::create([
             'nom' => 'Le Gio',
-            'type' => 'T3',   
+            'type' => 'T2',   
             'user_id' => '1',
             'address_id' => '71',      
         ]);
         Properties::create([
             'nom' => 'Le Gio',
-            'type' => 'Villa',   
-            'user_id' => '1',
+            'type' => 'T3',   
+            'user_id' => '2',
             'address_id' => '72',      
         ]);
+        Properties::create([
+            'nom' => 'Le Gio',
+            'type' => 'T3',   
+            'user_id' => '3',
+            'address_id' => '73',      
+        ]);
+        Properties::create([
+            'nom' => 'Le Gio',
+            'type' => 'T3',   
+            'user_id' => '3',
+            'address_id' => '74',      
+        ]);
+        Properties::create([
+            'nom' => 'Le Gio',
+            'type' => 'T3',   
+            'user_id' => '2',
+            'address_id' => '75',      
+        ]);
+        Properties::create([
+            'nom' => 'Le Gio',
+            'type' => 'T3',   
+            'user_id' => '2',
+            'address_id' => '76',      
+        ]);
+        Properties::create([
+            'nom' => 'Le Gio',
+            'type' => 'T3',   
+            'user_id' => '3',
+            'address_id' => '77',      
+        ]);
+        Properties::create([
+            'nom' => 'Le Gio',
+            'type' => 'T3',   
+            'user_id' => '3',
+            'address_id' => '78',      
+        ]);
+        Properties::create([
+            'nom' => 'Le Gio',
+            'type' => 'T3',   
+            'user_id' => '1',
+            'address_id' => '79',      
+        ]);
+        Properties::create([
+            'nom' => 'Le Gio',
+            'type' => 'T3',   
+            'user_id' => '1',
+            'address_id' => '80',      
+        ]);
+        Properties::create([
+            'nom' => 'Le Gio',
+            'type' => 'T3',   
+            'user_id' => '2',
+            'address_id' => '81',      
+        ]);
+        Properties::create([
+            'nom' => 'Le Gio',
+            'type' => 'T3',   
+            'user_id' => '2',
+            'address_id' => '82',      
+        ]);
+        Properties::create([
+            'nom' => 'Le Gio',
+            'type' => 'T3',   
+            'user_id' => '3',
+            'address_id' => '83',      
+        ]);
+        Properties::create([
+            'nom' => 'Le Gio',
+            'type' => 'T3',   
+            'user_id' => '3',
+            'address_id' => '84',      
+        ]);
+        Properties::create([
+            'nom' => 'Le Gio',
+            'type' => 'T3',   
+            'user_id' => '1',
+            'address_id' => '85',      
+        ]);
+        Properties::create([
+            'nom' => 'Le Gio',
+            'type' => 'T3',   
+            'user_id' => '1',
+            'address_id' => '86',      
+        ]);
+        Properties::create([
+            'nom' => 'Le Gio',
+            'type' => 'T3',   
+            'user_id' => '2',
+            'address_id' => '87',      
+        ]);
+        Properties::create([
+            'nom' => 'Le Gio',
+            'type' => 'T3',   
+            'user_id' => '2',
+            'address_id' => '88',      
+        ]);
+        Properties::create([
+            'nom' => 'Le Gio',
+            'type' => 'T3',   
+            'user_id' => '3',
+            'address_id' => '89',      
+        ]);
+        Properties::create([
+            'nom' => 'Le Gio',
+            'type' => 'T3',   
+            'user_id' => '3',
+            'address_id' => '90',      
+        ]);
+        Properties::create([
+            'nom' => 'Le Gio',
+            'type' => 'T3',   
+            'user_id' => '3',
+            'address_id' => '91',      
+        ]);
+        Properties::create([
+            'nom' => 'Le Gio',
+            'type' => 'T3',   
+            'user_id' => '1',
+            'address_id' => '92',      
+        ]);
+       
+        
+
         
 
        

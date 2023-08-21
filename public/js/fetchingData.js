@@ -10,23 +10,32 @@ async function fetchingData(url) {
     }
 }
 
-function searchPos() {
-    const postalCode = '06300'
-    const city = 'Nice'
-    const completeAddress = `${postalCode} ${city}`
 
-    const nominatimUrl =
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(completeAddress)}`
 
-    fetch(nominatimUrl)
-        .then(response => response.json())
+function searchNeighborhood() {
+    const apiKey = 'AIzaSyAiKGYNw5UqK24iZPhxr_5uML3q_8KZjn0'; // Remplacez par votre clé API Google
+
+    const fullAddress = document.getElementById('fullAddress').value;
+
+    const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(fullAddress)}&key=${apiKey}`;
+
+    fetchingData(geocodeUrl)
         .then(data => {
-
-            if (data.length > 0) {
-                const latitude = data[0].lat
-                const longitude = data[0].lon
-                console.log(`Latitude: ${latitude}, Longitude: ${longitude}`)
+            if (data.status === 'OK') {
+                const addressComponents = data.results[0].address_components;
+                
+                // Recherche du composant "neighborhood"
+                const neighborhoodComponent = addressComponents.find(component => component.types.includes('neighborhood'));
+                
+                if (neighborhoodComponent) {
+                    const neighborhood = neighborhoodComponent.long_name;
+                    console.log(`Quartier : ${neighborhood}`);
+                } else {
+                    console.log('Quartier non trouvé pour cette adresse.');
+                }
+            } else {
+                console.error('Erreur lors de la requête de géocodage');
             }
-            })
+        });
 }
   
