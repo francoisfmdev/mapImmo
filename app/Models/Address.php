@@ -12,12 +12,13 @@ class Address extends Model
     protected $table = 'address';
 
     protected $fillable = [
-        'streetNumber',
-        'streetName',
-        'postalCode',
+        'fullAddress',
         'city',
         'nbPropertyAddress',
         'latitude',
         'longitube',
+        
     ];
+
+   
 }

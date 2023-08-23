@@ -13,6 +13,7 @@ class CityPosition extends Model
         'city',
         'latitude',
         'longitude',
+        'zoom',
 
     ];
 }

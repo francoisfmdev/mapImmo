@@ -1,4 +1,4 @@
-const INITIAL_ZOOM_LEVEL = 16;
+const INITIAL_ZOOM_LEVEL = 14;
 const INITIAL_ZOOM_LEVEL1 = 13
 let markers = [];
 
@@ -33,52 +33,53 @@ function initMap() {
     return new google.maps.Map(document.getElementById('map'), mapOptions)
 }
 
-function createMarkers(data, map) {
-    const timeMarker = 200   
+function createMarkers(data, map, cities) {
+    const timeMarker = 200
     let delay = 0
+    const mapCity = data
+    console.log(cities)
+    //fonction de tri
+    for (const city of cities) {
+        for (const sci of data) {       
+            for (const addressProperty of sci.user_properties_with_addresses) {
+                console.log(city.city + ' in if')            
+                const fillColor = sci.color || 'gray'; // Utilisez une couleur par défaut 'gray' si la couleur n'est pas définie
+                // Utilisez l'URL du fichier SVG sans remplacer la couleur dans le contenu du SVG
+                const svgContent = `
+             <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" >
+             <circle cx="3.5" cy="3.5" r="3" fill="${fillColor}" />
+             </svg>`;
 
-    for (const sci of data) {
-        for (const addressProperty of sci.user_properties_with_addresses) {
-            // Couleur par défaut
-            const fillColor = sci.color || 'gray'; // Utilisez une couleur par défaut 'gray' si la couleur n'est pas définie
+                // Utilisez la couleur de remplissage fillColor pour le marqueur
+                const icon = {
+                    url: `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svgContent)}`,
+                    fillColor: fillColor, // Utilisez la couleur déterminée
+                    fillOpacity: 1,
+                    scale: 1,
+                    // Point d'ancrage pour centrer le marqueur
+                };
+                setTimeout(() => {
+                    const mark = new google.maps.Marker({
+                        position: new google.maps.LatLng(addressProperty.address.latitude, addressProperty.address.longitude),
+                        map: map,
+                        title: "",
+                        icon: icon,
+                        optimized: false,
+                        sci: sci.name,
+                    });
 
-            // Utilisez l'URL du fichier SVG sans remplacer la couleur dans le contenu du SVG
-            const svgContent = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" >
-  <circle cx="3.5" cy="3.5" r="3" fill="${fillColor}" />
-</svg>`;
+                    markers.push(mark);
+                }, delay)
+                delay += timeMarker
 
-            // Utilisez la couleur de remplissage fillColor pour le marqueur
-            const icon = {
-                url: `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svgContent)}`,
-                fillColor: fillColor, // Utilisez la couleur déterminée
-                fillOpacity: 1,
-                scale: 1,
-                // Point d'ancrage pour centrer le marqueur
-                
-            };
-
-
-            setTimeout(() => {
-                const mark = new google.maps.Marker({
-                    position: new google.maps.LatLng(addressProperty.address.latitude, addressProperty.address.longitude),
-                    map: map,
-                    title: "",
-                    icon: icon,
-                    optimized: false,
-                    sci : sci.name,
-                });
-            
-
-
-            markers.push(mark);
-        }, delay)
-        delay += timeMarker
-        }
+            }     
+        // setTimeout(() => {
+                    //   parcourirEnBoucleAvecPause(city , map)
+        //               }, time)
+        }       
     }
     return markers;
 }
-
 const selectBySCI = document.getElementById('selectedBySCI')
 
 
@@ -95,7 +96,7 @@ function filterMarkersBySCI(selectedSCI) {
     }
 }
 
-selectBySCI.addEventListener('change', function() {
+selectBySCI.addEventListener('change', function () {
     const selectedSCI = selectBySCI.value;
     filterMarkersBySCI(selectedSCI);
 });
@@ -112,18 +113,35 @@ function changeMapPosition(newLat, newLng, map) {
     map.setCenter(newPosition);
 }
 
-function countSCI(properties){
+function countSCI(properties) {
     let total = 0
     console.log(properties)
     for (const sci of properties) {
         let numberProperties = sci.user_properties_with_addresses.length
         console.log(numberProperties)
         total += numberProperties
-        
+
     }
     console.log(total)
     return total
 }
 
+function triParSelection(arr) {
+    console.log(arr)
+    for (let i = 0; i < arr.length - 1; i++) {
+        let minIdx = i;
+        for (let j = i + 1; j < arr.length; j++) {
+            console.log(arr[j].address.city)
+            if (arr[j].address.city < arr[minIdx].address.city) {
+                minIdx = j;
+            }
+        }
 
+        if (minIdx !== i) {
+            [arr[i], arr[minIdx]] = [arr[minIdx], arr[i]]; // échange les éléments
+        }
+
+    }
+
+}
 

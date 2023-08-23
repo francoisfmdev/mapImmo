@@ -43,5 +43,11 @@ class CityPositionsSeeder extends Seeder
             'latitude' => '43.6579947',       
             'longitude' => '7.1217592',   
         ]);
+        CityPosition::create([
+            
+            'city' => 'Saint-Laurent-du-Var',
+            'latitude' => '43.6690101',       
+            'longitude' => '7.1906969',   
+        ]);
     }
 }

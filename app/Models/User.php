@@ -61,11 +61,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Properties::class);
     }
-   
+    //permet de classer les biens par ville avec Nice en premier et un classement avec les autres ville par ordre alphabetique
     public function user_properties_with_addresses()
     {
-        return $this->hasMany(Properties::class, 'user_id')->with('address');
+        return $this->hasMany(Properties::class, 'user_id')->with('address')
+            ->join('address', 'properties.address_id', '=', 'address.id')
+            ->orderByRaw("CASE WHEN address.city = 'Nice' THEN 1 ELSE 2 END")
+            ->orderBy('address.city')
+            ->select('properties.*');
     }
+   
 }
 
 

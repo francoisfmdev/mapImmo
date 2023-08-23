@@ -1,4 +1,4 @@
-const INITIAL_ZOOM_LEVEL = 16;
+const INITIAL_ZOOM_LEVEL = 14;
 
 function initMap() {
     const mapOptions = {

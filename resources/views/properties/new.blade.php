@@ -129,6 +129,12 @@
                                 name='lon' hidden>
 
                         </div>
+                        <div style="display:none;" class="mb-3" id="groupCity">
+                            <label for="city" class="form-label">Ville</label>
+                            <input type="text" class="form-control"
+                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};" id="city"
+                                name="city" hidden>
+                        </div>
 
 
                         <input type="hidden" name="sci_id" value="{{ request('sci') }}">

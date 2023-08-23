@@ -39,6 +39,7 @@ class CityPositionController extends Controller
                     'city' => $city,
                     'created_at' => now(),
                     'updated_at' => now(),
+                    'zoom',
                 ]);
             }
         }

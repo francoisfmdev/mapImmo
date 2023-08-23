@@ -130,25 +130,47 @@ async function animateMapWithZooming(latitude, longitude, map) {
   
 }
 
-async function parcourirEnBoucleAvecPause(cities, map,) {
-  
- 
 
-  while (true) {
-      if (!isPaused) {
-          const city = cities[index];
-          const latitude = city.latitude;
-          const longitude = city.longitude;
 
+async function parcourirEnBoucleAvecPause(cities, map, scis) {
+  for (const city of cities) {
+      for (const sci of scis) {
+          const propertiesInCity = [];
           
-          // Animer le déplacement de la carte avec dézoom, déplacement et rézoom
-          await animateMapWithZooming(latitude, longitude, map);
+          // Supposons que sci.user_properties_with_addresses est une relation (peut-être un objet)
+          const propertiesRelation = sci.user_properties_with_addresses;
 
-          index = (index + 1) % cities.length;
+          // Ici, vous devez filtrer les propriétés de la relation pour n'inclure que celles de la ville actuelle
+          for (const addressProperty of propertiesRelation) {
+              if (addressProperty.address.city === city) {
+                  propertiesInCity.push(addressProperty);
+              }
+          }
+
+          // Créez les marqueurs pour les propriétés de la ville actuelle pour le SCI actuel
+          const markers = createMarkers(propertiesInCity, map, [city]);
+          await Promise.all(markers); // Wait for all markers to be created
       }
+
+      await animateMapWithZooming(city.latitude, city.longitude, map); // Perform the map animation
       await sleep(interval);
   }
 }
+
+
+    // while (true) {
+  //     if (!isPaused) {
+  //         const city = cities[index];
+  //         const latitude = city.latitude;
+  //         const longitude = city.longitude;
+
+          
+  //         // Animer le déplacement de la carte avec dézoom, déplacement et rézoom
+  //         await animateMapWithZooming(latitude, longitude, map);
+
+  //         index = (index + 1) % cities.length;
+  //     }
+
 
 // Fonction pour mettre en pause ou reprendre la boucle
 function togglePause() {

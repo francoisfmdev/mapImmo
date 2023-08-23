@@ -50,32 +50,10 @@
                         <input type="hidden" name="property_id" value="{{ $properties->id }}">
 
                         <div class="mb-3">
-                            <label for="streetNumber" class="form-label">Numéro de rue</label>
-                            <input type="text" class="form-control"
-                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};"
-                                id="streetNumber" name='streetNumber' value="{{ $properties->address->streetNumber }}">
-
-                        </div>
-                        <div class="mb-3">
-                            <label for="streetName" class="form-label">Nom de la rue</label>
-                            <input type="text" class="form-control"
-                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};"
-                                id="streetName" name='streetName' value="{{ $properties->address->streetName }}">
-
-                        </div>
-                        <div class="mb-3">
-                            <label for="postalCode" class="form-label">Code Postal</label>
-                            <input type="text" class="form-control"
-                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};"
-                                id="postalCode" name='postalCode' value="{{ $properties->address->postalCode }}">
-
-                        </div>
-                        <div class="mb-3">
-                            <label for="city" class="form-label">Ville</label>
-                            <input type="text" class="form-control"
-                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};"
-                                id="city" name='city' value="{{ $properties->address->city }}">
-
+                            <label for="fullAddress" class="form-label">Adresse complète</label>
+                            <input type="text" class="form-control" 
+                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};" id="fullAddress""
+                                name='fullAddress' value="{{ $properties->address->fullAddress }}">
                         </div>
                         <div style="diplay:none;" class="mb-3" id="groupLat">
                             <label for="lat" class="form-label">Latitude</label>
@@ -90,6 +68,12 @@
                                 style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};"
                                 id="lon" name='lon' hidden>
 
+                        </div>
+                        <div style="display:none;" class="mb-3" id="groupCity">
+                            <label for="city" class="form-label">Ville</label>
+                            <input type="text" class="form-control"
+                                style="border:2px solid {{ $selectedSci ? $selectedSci->color : $userColor }};" id="city"
+                                name="city" hidden>
                         </div>
 
 
@@ -152,6 +136,13 @@
 
         /* Ajoutez les styles pour les boutons ayant la classe .btn-white */
     </style>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiKGYNw5UqK24iZPhxr_5uML3q_8KZjn0&libraries=places"></script>
+<script>
+    let input = document.getElementById('fullAddress');
+    let fullAddress = new google.maps.places.Autocomplete(input);
+    console.log(fullAddress);
+  </script>
 
-    <script src={{ asset('/js/addressGeocode.js') }}></script>
+
+<script src={{ asset('/js/addressGeocode.js') }}></script>
 @endsection

@@ -54,7 +54,7 @@
                             <td class="col-md-2 ">{{ $property->user->name }}</td>
                             <td class="col-md-2">{{ $property->type }}</td>
                             <td class="col-md-2">{{ $property->nom }}</td>
-                            <td class="col-md-2">{{ $property->address->streetNumber }} {{ $property->address->streetName }}</td>
+                            <td class="col-md-2">{{ $property->address->fullAddress }}</td>
                             <td class="col-md-2">{{ $property->address->city }}</td>
                             <td class="col-md-2">
                                 <div class="d-flex flex-column">

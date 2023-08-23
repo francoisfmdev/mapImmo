@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('fullAddress')->nullable();
             $table->integer('nbPropertyAddress') ->default(1);
+            $table->string('city')->nullable();
             $table->string('latitude') ->nullable();
             $table->string('longitude') ->nullable();
             $table->timestamps();

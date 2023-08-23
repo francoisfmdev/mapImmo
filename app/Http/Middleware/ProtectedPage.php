@@ -12,13 +12,11 @@ class ProtectedPage
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
-    
+     */ 
         public function handle(Request $request, Closure $next): Response
         {
             $enteredPassword = $request->input('password');
-            $desiredPassword = 'Azerty06!';
-    
+            $desiredPassword = 'Azerty06!'; 
             if ($request->isMethod('post')) {
                 if ($enteredPassword !== $desiredPassword) {
                     return redirect()->route('badPassword')->withErrors(['password' => 'Mot de passe incorrect']);
@@ -27,9 +25,6 @@ class ProtectedPage
                     return redirect()->route('mapByProperties');
                 }
             }
-            
-            
-    
             return $next($request);
         }
     }

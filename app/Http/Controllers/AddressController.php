@@ -16,6 +16,7 @@ class AddressController extends Controller
         $address->fullAddress = $req->input('fullAddress');
         $address->longitude = $req->input('lon');
         $address->latitude = $req->input('lat');
+        $address->city = $req->input('city');
             
         $address->save();
         }
