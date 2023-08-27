@@ -17,18 +17,20 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 // les routes des pages protégées par mot de passe
 Route::middleware(['password.protect'])->group(function () {
-    Route::get('/', function () {
-        return view('password.pageProtected');
-    })->name('pageProtected');
-    Route::post('/checkPassword', function () {
-        return redirect()->route('home');
-    })->name('checkPassword');
-    Route::get('/badPassword', function () {
-        return view('password.badPassword');
-    })->name('badPassword');
-    Route::get('/data', [PropertyController::class, 'getAllPropertiesData'])->middleware('cors');
-    Route::get('/mapByProperties', [MapController::class, 'mapByProperties'])->name('mapByProperties');
-    Route::get('/mapByScis', [MapController::class, 'mapByScis'])->name('mapByScis');
+Route::get('/', function () {
+    return view('password.pageProtected');
+})->name('pageProtected');
+Route::post('/checkPassword', function () {
+    return redirect()->route('home');
+})->name('checkPassword');
+Route::get('/badPassword', function () {
+    return view('password.badPassword');
+})->name('badPassword');
+Route::get('/data', [PropertyController::class, 'getAllPropertiesData'])->middleware('cors');
+Route::get('/datacitiessci', [PropertyController::class, 'getAllCitiesAndProperties'])->middleware('cors');
+Route::get('/databy', [PropertyController::class, 'getAllPropertiesBySciAndCity'])->middleware('cors');
+Route::get('/mapByProperties', [MapController::class, 'mapByProperties'])->name('mapByProperties');
+Route::get('/mapByScis', [MapController::class, 'mapByScis'])->name('mapByScis');
 });
 
 // routes classiques

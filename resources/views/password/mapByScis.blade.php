@@ -42,7 +42,7 @@
         <select name="selectedBySCI" id="selectedBySCI" class="form-control">
             <option value="">Filtre par SCI</option>
             @foreach ($users as $user)
-                <option value="{{ $user->name }}"> 
+                <option value="{{ $user->name }}">
                     {{ $user->name }}
                 </option>
             @endforeach
@@ -98,7 +98,7 @@
                         <table class="table table_property">
                             <thead>
                                 <tr>
-                                    
+
                                     <th class="t_title">Garage</th>
                                     <th class="t_title">T1</th>
                                     <th class="t_title">T2</th>
@@ -141,12 +141,13 @@
 <script src={{ asset('/js/fetchingData.js') }}></script>
 <script src={{ asset('/js/mapScis.js') }}></script>
 <script src={{ asset('/js/animation.js') }}></script>
-<script src={{ asset('/js/mapApplication.js') }}></script>
+
 
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiKGYNw5UqK24iZPhxr_5uML3q_8KZjn0&callback=initMap" async
-    defer>
+   async defer>
 </script>
+<script src={{ asset('/js/mapApplication.js') }}></script>
 <script>
         document.addEventListener("DOMContentLoaded", function () {
     const pauseButton = document.getElementById("pauseButton");

@@ -17,8 +17,10 @@ class Address extends Model
         'nbPropertyAddress',
         'latitude',
         'longitube',
-        
+
     ];
 
-   
+    public function property() {
+        return $this->belongsTo(Properties::class);
+    }
 }

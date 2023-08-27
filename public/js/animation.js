@@ -1,4 +1,4 @@
-let interval = 3000; // Temps de pause initial (en millisecondes)
+let interval = 8000; // Temps de pause initial (en millisecondes)
 let index = 0; // Index pour parcourir le cities
 let isPaused = false; // Variable pour contrôler l'état de la boucle
 
@@ -70,49 +70,49 @@ async function zoomBackToInitialLevel(map, initialZoom, duration) {
     const targetZoom = initialZoom;
     const zoomSteps = 30; // Nombre de pas pour atteindre le niveau de zoom cible
     const zoomStepDuration = duration / zoomSteps; // Durée de chaque pas
-  
+
     return new Promise(resolve => {
       let currentStep = 0;
-  
+
       function zoomStep() {
         currentStep++;
         const progress = currentStep / zoomSteps;
         const zoomLevel = currentZoom + (targetZoom - currentZoom) * progress;
         map.setZoom(zoomLevel);
-  
+
         if (currentStep < zoomSteps) {
           setTimeout(zoomStep, zoomStepDuration);
         } else {
           resolve();
         }
       }
-  
+
       zoomStep();
     });
   }
-  
+
   async function dezoome(map, duration) {
     const currentZoom = map.getZoom();
     const targetZoom = 13.5;
-    const zoomSteps = 10; // Nombre de pas pour atteindre le niveau de zoom cible
+    const zoomSteps = 100; // Nombre de pas pour atteindre le niveau de zoom cible
     const zoomStepDuration = duration / zoomSteps; // Durée de chaque pas
-  
+
     return new Promise(resolve => {
       let currentStep = 0;
-  
+
       function zoomStep() {
         currentStep++;
         const progress = currentStep / zoomSteps;
         const zoomLevel = currentZoom - (currentZoom - targetZoom) * progress;
         map.setZoom(zoomLevel);
-  
+
         if (currentStep < zoomSteps) {
           setTimeout(zoomStep, zoomStepDuration);
         } else {
           resolve();
         }
       }
-  
+
       zoomStep();
     });
   }
@@ -120,41 +120,29 @@ async function zoomBackToInitialLevel(map, initialZoom, duration) {
 // Fonction asynchrone pour animer le déplacement de la carte avec dézoom, déplacement et rézoom
 async function animateMapWithZooming(latitude, longitude, map) {
   // Dézoomer à 11 en 1 seconde de manière fluide
-  await dezoome(map,1500);
+  await dezoome(map,500);
 
   // Animation de déplacement vers la nouvelle position en 2 secondes
   await animateMapToPosition(latitude, longitude, map, 500);
 
   // Rézoomer vers le niveau initial en 1 seconde de manière fluide
-  await zoomBackToInitialLevel(map, INITIAL_ZOOM_LEVEL, 1500);
-  
+  await zoomBackToInitialLevel(map, INITIAL_ZOOM_LEVEL, 500);
+
 }
 
 
 
-async function parcourirEnBoucleAvecPause(cities, map, scis) {
+async function parcourirEnBoucleAvecPause(cities, map, properties,sci) {
+
+  let mylistmark = null;
   for (const city of cities) {
-      for (const sci of scis) {
-          const propertiesInCity = [];
-          
-          // Supposons que sci.user_properties_with_addresses est une relation (peut-être un objet)
-          const propertiesRelation = sci.user_properties_with_addresses;
 
-          // Ici, vous devez filtrer les propriétés de la relation pour n'inclure que celles de la ville actuelle
-          for (const addressProperty of propertiesRelation) {
-              if (addressProperty.address.city === city) {
-                  propertiesInCity.push(addressProperty);
-              }
-          }
+         mylistmark = properties.filter((property)=> property.address.city == city.city)
+       await  createMarkers(mylistmark,map,sci,city)
 
-          // Créez les marqueurs pour les propriétés de la ville actuelle pour le SCI actuel
-          const markers = createMarkers(propertiesInCity, map, [city]);
-          await Promise.all(markers); // Wait for all markers to be created
-      }
-
-      await animateMapWithZooming(city.latitude, city.longitude, map); // Perform the map animation
-      await sleep(interval);
   }
+
+
 }
 
 
@@ -164,7 +152,7 @@ async function parcourirEnBoucleAvecPause(cities, map, scis) {
   //         const latitude = city.latitude;
   //         const longitude = city.longitude;
 
-          
+
   //         // Animer le déplacement de la carte avec dézoom, déplacement et rézoom
   //         await animateMapWithZooming(latitude, longitude, map);
 

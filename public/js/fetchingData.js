@@ -23,10 +23,10 @@ function searchNeighborhood() {
         .then(data => {
             if (data.status === 'OK') {
                 const addressComponents = data.results[0].address_components;
-                
+
                 // Recherche du composant "neighborhood"
                 const neighborhoodComponent = addressComponents.find(component => component.types.includes('neighborhood'));
-                
+
                 if (neighborhoodComponent) {
                     const neighborhood = neighborhoodComponent.long_name;
                     console.log(`Quartier : ${neighborhood}`);
@@ -38,4 +38,3 @@ function searchNeighborhood() {
             }
         });
 }
-  

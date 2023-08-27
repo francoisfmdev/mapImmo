@@ -70,6 +70,10 @@ class PropertyController extends Controller
 
     public function getAllPropertiesData()
     {
+        $sci = $req->input('sci');
+        $user = User::with('user_properties')->find($sci);
+        $properties = $user->user_properties()->orderBy('id')->get();
+        $scis = User::all();
         // Récupérer tous les utilisateurs avec leurs propriétés et adresses
         $usersWithPropertiesAndAddresses = User::with('user_properties_with_addresses')
             // ->orderBy('nom') // ou un autre champ de tri pour les utilisateurs SCI
@@ -85,14 +89,44 @@ class PropertyController extends Controller
                 }
                 return strcasecmp($city1['city'], $city2['city']); // Tri alphabétique
             });
-        
+
         // Retourner les données au format JSON
         return response()->json([$usersWithPropertiesAndAddresses, $cities]);
     }
 
 
+    public function getAllCitiesAndProperties(Request $req){
+        $scis = User::all();
+        $cities = CityPosition::all()->toArray();
 
+        return response()->json([$scis,$cities]);
 
+    }
+
+    public function getAllPropertiesBySciAndCity(Request $req){
+
+        // $properties = Properties::with(['address' => function ($query) {
+        //     $query->orderByRaw("CASE WHEN city = 'Nice' THEN 1 ELSE 2 END")
+        //           ->orderBy('city');
+        // }])
+        // ->with(['sci' => function ($query) {
+        //     $query->select('color', 'id','name'); // Sélectionne seulement la couleur et l'ID de l'utilisateur
+        // }])
+        // ->orderBy('type', 'ASC')
+        // ->get();
+        $properties = Properties::with(['address' => function ($query) {
+            $query->orderByRaw("CASE WHEN city = 'Nice' THEN 1 ELSE 2 END")
+                  ->orderBy('city');
+        }])
+        ->with(['sci' => function ($query) {
+            $query->select('color', 'id');
+        }])
+        ->orderBy('user_id', 'ASC')
+        ->orderBy('type', 'ASC')
+        ->get();
+
+        return response()->json($properties);
+    }
 
     public function new_property(Request $request)
     {
@@ -114,9 +148,9 @@ class PropertyController extends Controller
 
     public function new_property_treatment(Request $request)
     {
-       
-        
-            
+
+
+
             // dd($request->all());
             $request->validate([
                 'type' => 'required',
@@ -144,17 +178,17 @@ class PropertyController extends Controller
             foreach ($address as $addres) {
                 $address_id = $addres->id;
                 $properties = new Properties();
-                
+
                 $properties->type = $request->input('type');
                 $properties->nom = $request->input('nom');
                 $properties->user_id = $user->id; //Ajour de l'ID de l'utilisateur connecté
-                $properties->address_id = $addres->id; //Ajour de l'ID de l'utilisateur connecté         
+                $properties->address_id = $addres->id; //Ajour de l'ID de l'utilisateur connecté
                 $properties->user_id = $sciId;
                 $address = $request->input('fullAddress');
                 $primitivWords = explode(',', $address);
                 $city = trim($primitivWords[1]);
                 $properties->address_id = $addres->id;
-               
+
                 $properties->save();
 
 
@@ -166,7 +200,7 @@ class PropertyController extends Controller
 
 
             return redirect('/index')->with('status', 'Bien ajouté avec succès');
-      
+
     }
 
 
@@ -196,33 +230,33 @@ class PropertyController extends Controller
             'lon' => 'required',
             'city' => 'required'
         ]);
-    
+
         $idPropriete = $request->input('property_id');
         $propriete = Properties::find($idPropriete);
-    
+
         if (!$propriete) {
             return redirect('/properties')->with('error', 'Propriété introuvable.');
         }
-    
+
         $controllerAdresse = new AddressController();
         $controllerAdresse->new_address($request);
-    
+
         $adresse = $controllerAdresse->get_one_address($request);
         $idAdresse = null;
-    
+
         foreach ($adresse as $adr) {
             $idAdresse = $adr->id;
             $propriete->type = $request->input('type');
             $propriete->nom = $request->input('nom');
             $propriete->address_id = $adr->id;
             $propriete->save();
-    
+
             $ville = $request->input('city');
-    
+
             $controllerPositionVille = new CityPositionController();
             $controllerPositionVille->addCityIfNotExists($ville);
         }
-    
+
         return redirect('/index')->with('status', 'Propriété modifiée avec succès');
     }
 

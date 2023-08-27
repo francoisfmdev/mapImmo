@@ -22,8 +22,7 @@ class Properties extends Model
 
     ];
 
-    public function user()
-    {
+    public function sci() {
         return $this->belongsTo(User::class, 'user_id');
     }
 
@@ -32,5 +31,4 @@ class Properties extends Model
         return $this->belongsTo(Address::class, 'address_id');
     }
 
-    
 }
