@@ -26,45 +26,14 @@ function initMap() {
             //     elementType: 'labels',
             //     stylers: [{ visibility: 'off' }]
             // },
-            
-            
+
+
         ]
     }
     return new google.maps.Map(document.getElementById('map'), mapOptions)
 }
 
-function createMarkers(data, map) {
-    const markers = [];
 
-    for (const sci of data) {
-        for (const addressProperty of sci.user_properties_with_addresses) {
-            const fillColor = applyColor(addressProperty.type); ; // Couleur par défaut
-
-            
-            // Définir le chemin vers le fichier SVG en fonction du type
-            let svgFileName = `circle${addressProperty.type}.svg`;
-
-            const icon = {
-                url: `images/properties/${svgFileName}`, // Chemin vers le fichier SVG
-                fillColor: fillColor, // Utiliser la couleur déterminée
-                fillOpacity: 1,
-                scale: 1,
-                
-            };
-
-            const mark = new google.maps.Marker({
-                position: new google.maps.LatLng(addressProperty.address.latitude, addressProperty.address.longitude),
-                map: map,
-                title: "",
-                icon: icon,
-                optimized: false,
-            });
-
-            markers.push(mark);
-        }
-    }
-    return markers;
-}
 
 function isColorValid(color) {
     // Vous pouvez utiliser une expression régulière pour vérifier que la couleur est au format hexadécimal
@@ -100,6 +69,5 @@ function applyColor(type) {
             return 'gray'; // Couleur par défaut si le type n'est pas reconnu
     }
 }
-
 
 
