@@ -105,27 +105,34 @@ class PropertyController extends Controller
 
     public function getAllPropertiesBySciAndCity(Request $req){
 
+        $properties = Properties::with(['address', 'sci'])
+        ->orderBy('type', 'ASC')
+        ->get()
+        ->sortBy(function ($property) {
+            return $property->sci->name;
+        })
+        ->groupBy('sci.name')
+        ->map(function ($propertiesBySci) {
+            return $propertiesBySci->sortBy(function ($property) {
+                return $property->address->city !== 'Nice' ? $property->address->city : '';
+            });
+        })
+        ->collapse();
+
+    return response()->json($properties);
+
         // $properties = Properties::with(['address' => function ($query) {
         //     $query->orderByRaw("CASE WHEN city = 'Nice' THEN 1 ELSE 2 END")
         //           ->orderBy('city');
         // }])
         // ->with(['sci' => function ($query) {
-        //     $query->select('color', 'id','name'); // Sélectionne seulement la couleur et l'ID de l'utilisateur
+        //     $query->select('color', 'id');
         // }])
+        // ->orderBy('user_id', 'ASC')
         // ->orderBy('type', 'ASC')
         // ->get();
-        $properties = Properties::with(['address' => function ($query) {
-            $query->orderByRaw("CASE WHEN city = 'Nice' THEN 1 ELSE 2 END")
-                  ->orderBy('city');
-        }])
-        ->with(['sci' => function ($query) {
-            $query->select('color', 'id');
-        }])
-        ->orderBy('user_id', 'ASC')
-        ->orderBy('type', 'ASC')
-        ->get();
 
-        return response()->json($properties);
+        //return response()->json($properties);
     }
 
     public function new_property(Request $request)
