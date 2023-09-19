@@ -64,7 +64,7 @@
 <div class="container">
     <div class="col-12 mx-auto text-center">
         <div class="row">
-            <div class="col-md-6 col-12">
+            <div class="col-md-12 col-12">
                 <div class="table-responsive">
                     <div class=" mt-3">
                         <table class="table table_property">
@@ -74,6 +74,14 @@
                                     <th class="t_title">N-1</th>
                                     <th class="t_title">N-2</th>
                                     <th class="t_title">N-3</th>
+                                    <th class="t_title">Garage</th>
+                                    <th class="t_title">T1</th>
+                                    <th class="t_title">T2</th>
+                                    <th class="t_title">T3</th>
+                                    <th class="t_title">T4</th>
+                                    <th class="t_title">T5</th>
+                                    <th class="t_title">Villa</th>
+                                    <th class="t_title">Total</th>
 
                                 </tr>
                             </thead>
@@ -84,6 +92,14 @@
                                         <td>{{ $user->revenue1 }}</td>
                                         <td>{{ $user->revenue2 }}</td>
                                         <td>{{ $user->revenue3 }}</td>
+                                        <td>{{ $user->user_properties->where('type', 'Garage')->count() }}</td>
+                                        <td>{{ $user->user_properties->where('type', 'T1')->count() }}</td>
+                                        <td>{{ $user->user_properties->where('type', 'T2')->count() }}</td>
+                                        <td>{{ $user->user_properties->where('type', 'T3')->count() }}</td>
+                                        <td>{{ $user->user_properties->where('type', 'T4')->count() }}</td>
+                                        <td>{{ $user->user_properties->where('type', 'T5')->count() }}</td>
+                                        <td>{{ $user->user_properties->where('type', 'Villa')->count() }}</td>
+                                        <td>{{ $user->user_properties->count() }}</td>
 
                                     </tr>
                                 @endforeach
@@ -92,7 +108,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-12">
+            {{-- <div class="col-md-6 col-12">
                 <div class="table-responsive">
                     <div class=" mt-3">
                         <table class="table table_property">
@@ -127,7 +143,7 @@
                         </table>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>
@@ -161,4 +177,27 @@
     });
     pauseButton.textContent = isPaused ? "Reprendre" : "Pause";
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+   
+    const selectedBySCI = document.getElementById("selectedBySCI");
+
+    const tableRows = document.querySelectorAll(".table_property tbody tr");
+
+    // Ajoutez un gestionnaire d'événements de changement à l'élément de sélection
+    selectedBySCI.addEventListener("change", function () {
+        const selectedValue = this.value; // Obtenez la valeur sélectionnée
+
+        // Parcourez les lignes du tableau et affichez celles qui correspondent à la valeur sélectionnée
+        tableRows.forEach(function (row) {
+            if (row.firstElementChild.textContent === selectedValue) {
+                row.style.display = ""; // Affichez la ligne
+            } else {
+                row.style.display = "none"; // Masquez la ligne si elle ne correspond pas
+            }
+        });
+    });
+});
+
+
 </script>
