@@ -104,35 +104,30 @@ class PropertyController extends Controller
     }
 
     public function getAllPropertiesBySciAndCity(Request $req){
+        $cities = CityPosition::all();
+        // Récupère toutes les propriétés avec les relations "address" et "sci" préchargées
+            $properties = Properties::with(['address', 'sci'])
+            ->orderBy('type', 'ASC')
+            ->get();
 
-        $properties = Properties::with(['address', 'sci'])
-        ->orderBy('type', 'ASC')
-        ->get()
-        ->sortBy(function ($property) {
+        // Trie les propriétés par le nom de l'utilisateur (SCI)
+        $properties = $properties->sortBy(function ($property) {
             return $property->sci->name;
-        })
-        ->groupBy('sci.name')
-        ->map(function ($propertiesBySci) {
-            return $propertiesBySci->sortBy(function ($property) {
-                return $property->address->city !== 'Nice' ? $property->address->city : '';
-            });
-        })
-        ->collapse();
+        });
 
-    return response()->json($properties);
+        // Regroupe les propriétés par le nom de l'utilisateur (SCI)
+        $properties = $properties->groupBy('sci.name')
+            ->map(function ($propertiesBySci) {
+                // Trie les propriétés par ville, avec Nice en premier
+                return $propertiesBySci->sortBy(function ($property) {
+                    // Si la ville n'est pas Nice, trie par ordre alphabétique
+                    return $property->address->city !== 'Nice' ? $property->address->city : '';
+                });
+            })
+            ->collapse(); // Aplatit la collection de groupes en une seule collection
 
-        // $properties = Properties::with(['address' => function ($query) {
-        //     $query->orderByRaw("CASE WHEN city = 'Nice' THEN 1 ELSE 2 END")
-        //           ->orderBy('city');
-        // }])
-        // ->with(['sci' => function ($query) {
-        //     $query->select('color', 'id');
-        // }])
-        // ->orderBy('user_id', 'ASC')
-        // ->orderBy('type', 'ASC')
-        // ->get();
-
-        //return response()->json($properties);
+        // Retourne les propriétés triées et groupées au format JSON
+        return response()->json([$properties,$cities]);
     }
 
     public function new_property(Request $request)

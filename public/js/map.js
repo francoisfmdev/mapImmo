@@ -3,7 +3,7 @@ const INITIAL_ZOOM_LEVEL = 14;
 function initMap() {
     const mapOptions = {
         disableDefaultUI: true,
-        center: { lat: 43.7101728, lng: 7.2619532 },
+        center: { lat: 43.7009358, lng: 7.2683912 },
         zoom: INITIAL_ZOOM_LEVEL,
         styles: [
             {

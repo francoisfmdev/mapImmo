@@ -94,7 +94,7 @@ async function zoomBackToInitialLevel(map, initialZoom, duration) {
   async function dezoome(map, duration) {
     const currentZoom = map.getZoom();
     const targetZoom = 13.5;
-    const zoomSteps = 100; // Nombre de pas pour atteindre le niveau de zoom cible
+    const zoomSteps = 30; // Nombre de pas pour atteindre le niveau de zoom cible
     const zoomStepDuration = duration / zoomSteps; // Durée de chaque pas
 
     return new Promise(resolve => {

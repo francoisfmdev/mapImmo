@@ -1,8 +1,9 @@
 
 
     fetchingData('/databy')
-        .then(properties => {
-             console.log(properties)
+        .then(data => {
+             console.log(data)
+             let properties = data[0]
         // Initialiser la carte une seule fois
 
     addMarkersToMap(properties);
