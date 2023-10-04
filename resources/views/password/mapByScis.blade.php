@@ -50,7 +50,17 @@
     </div>
 </div>
 
-<div id="map"></div>
+<div id="mapContainer">
+    <div id="map"></div>
+    <div id="infoPanel">
+        <button id="cancelButton">Annuler</button>
+        <div id="sciName"></div>
+        <div id="address"></div>
+        <div id="property"></div>
+        <!-- Contenu de la div -->
+    </div>
+</div>
+
 
 <div class="container text-center">
     <div class="row">
@@ -191,13 +201,16 @@ document.addEventListener("DOMContentLoaded", function () {
         // Parcourez les lignes du tableau et affichez celles qui correspondent à la valeur sélectionnée
         tableRows.forEach(function (row) {
             if (row.firstElementChild.textContent === selectedValue) {
-                row.style.display = ""; // Affichez la ligne
+                row.style.display = "";
             } else {
-                row.style.display = "none"; // Masquez la ligne si elle ne correspond pas
+                row.style.display = "none";
             }
         });
     });
 });
+
+
+
 
 
 </script>

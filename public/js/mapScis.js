@@ -2,6 +2,7 @@ const INITIAL_ZOOM_LEVEL = 12;
 const INITIAL_ZOOM_LEVEL1 = 14
 let markers = [];
 const selectBySCI = document.getElementById('selectedBySCI')
+let isMarkerClicked = false;
 
 
 function initMap() {
@@ -58,12 +59,24 @@ async function createMarkers(property, map) {
                 optimized: false,
                 sci: property.sci.name,
             });
-
-
-
-
-
-
+            
+            mark.addListener('click', function() {
+                const sciNameContainer = document.getElementById('sciName');
+                sciNameContainer.textContent = "Nom de la SCI : " + property.sci.name;
+                const sciNameContainer1 = document.getElementById('address');
+                sciNameContainer1.textContent = "Adresse complète : " + property.address.fullAddress;
+                const sciNameContainer2 = document.getElementById('property');
+                sciNameContainer2.textContent = "Type du bien : " + property.type;
+                
+                // Ajoutez la classe "clicked" à #mapContainer
+                document.getElementById('mapContainer').classList.add('clicked');
+            });
+            
+            // Pour annuler le clic
+            document.getElementById('cancelButton').addEventListener('click', function() {
+                // Supprimez la classe "clicked" de #mapContainer
+                document.getElementById('mapContainer').classList.remove('clicked');
+            });
 
     return mark;
 }
@@ -179,3 +192,4 @@ async function addMarkersToMap(properties) {
         }, index * 600); // Ajoute un délai d'une seconde pour chaque itération
     }
 }
+

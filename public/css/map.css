@@ -1,7 +1,4 @@
-#map{
-    width: 100%;
-    height: 90vh;
-}
+
 
 
 .legend {
@@ -64,3 +61,31 @@ th{
 }
 
 
+#mapContainer {
+  display: flex;
+}
+
+#map {
+  flex: 1;
+  transition: flex 1s; /* Ajout d'une transition fluide */
+  max-width: 100%;
+  height: 90vh;
+}
+
+#infoPanel {
+  flex: 0;
+  width: 30%;
+  max-width: 30%;
+  background-color: #f0f0f0;
+  overflow: auto; /* En cas de contenu débordant */
+  display: none; /* Par défaut, le panneau d'informations est masqué */
+}
+
+.clicked #map {
+  flex: 0.7; /* Réduit la taille de la carte lors du clic sur un marqueur */
+}
+
+.clicked #infoPanel {
+  flex: 0.3; /* Augmente la taille du panneau d'informations lors du clic sur un marqueur */
+  display: block; /* Affiche le panneau d'informations lors du clic sur un marqueur */
+}
